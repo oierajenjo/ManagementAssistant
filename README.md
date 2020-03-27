@@ -30,7 +30,10 @@
 ### Built With
 * [Django](https://www.djangoproject.com/)
 
+variables, festivo, 
 
+arboles de decision
+random forest
 
 <!-- GETTING STARTED -->
 ## Getting Started

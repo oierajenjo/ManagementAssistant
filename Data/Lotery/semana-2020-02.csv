@@ -1,0 +1,52 @@
+;;Ventas;;;Cancelaciones;;
+Día;Juego;Importe;Trans.;Apuestas;Importe;Trans.;Apuestas
+L;Primitiva;423;111;423;2;1;2
+L;Joker Prim.;37;0;37;0;0;0
+L;Bono Loto;261;72;522;0;0;0
+L;Gordo;93;41;62;0;0;0
+L;Quiniela;8,25;5;11;0;0;0
+L;Elige 8;0,5;0;1;0;0;0
+L;Quinigol;1;1;1;0;0;0
+L;Euromillones;480;74;192;5;1;2
+L;Lototurf;2;2;2;0;0;0
+M;Primitiva;110;28;110;0;0;0
+M;Bono Loto;44;19;88;0;0;0
+M;Gordo;7,5;3;5;0;0;0
+M;Quiniela;43,5;10;58;0;0;0
+M;Euromillones;185;31;74;12,5;1;5
+X;Primitiva;219;35;219;0;0;0
+X;Joker Prim.;8;0;8;0;0;0
+X;Bono Loto;40,5;26;81;0;0;0
+X;Gordo;10,5;4;7;0;0;0
+X;Quiniela;1,5;1;2;0;0;0
+X;Quinigol;1;1;1;0;0;0
+X;Euromillones;70;18;28;0;0;0
+J;Primitiva;223;41;223;0;0;0
+J;Joker Prim.;4;0;4;0;0;0
+J;Bono Loto;59;31;118;0;0;0
+J;Gordo;4,5;2;3;0;0;0
+J;Quiniela;16,5;4;22;0;0;0
+J;Euromillones;77,5;16;31;0;0;0
+J;Lototurf;1;1;1;0;0;0
+V;Primitiva;49;19;49;0;0;0
+V;Joker Prim.;1;0;1;0;0;0
+V;Bono Loto;63,5;29;127;0;0;0
+V;Gordo;6;3;4;0;0;0
+V;Quiniela;59,25;16;79;0;0;0
+V;Elige 8;1;0;2;0;0;0
+V;Quinigol;1;1;1;0;0;0
+V;Euromillones;82,5;23;33;0;0;0
+S;Primitiva;110;34;110;0;0;0
+S;Joker Prim.;6;0;6;0;0;0
+S;Bono Loto;45,5;26;91;0;0;0
+S;Gordo;19,5;4;13;0;0;0
+S;Quiniela;71,25;15;95;0;0;0
+S;Elige 8;0,5;0;1;0;0;0
+S;Euromillones;30;6;12;0;0;0
+S;Lototurf;1;1;1;0;0;0
+D;Primitiva;156;28;156;0;0;0
+D;Joker Prim.;6;0;6;0;0;0
+D;Bono Loto;117,5;22;235;0;0;0
+D;Gordo;115,5;32;77;0;0;0
+D;Euromillones;145;21;58;0;0;0
+D;Lototurf;1;1;1;0;0;0

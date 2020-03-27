@@ -1,0 +1,90 @@
+document.write("<!-- INICIO HTML PORTLET FILTRO -->");
+document.write("<script type=\"text\/javascript\">");
+
+
+// variable global que mantiene la seleccion de filtro previa
+// sirve para saber si tenemos que acceder a un select o a un inputtext  
+var previousIndex = 0
+var actualIndex = 0
+
+// pp_tipo_parametro, pp_parametro 
+var txtfiltro
+var filtroTipoParam
+var filtroParametro
+
+filtroTipoParam = String(location.search.match(/&pp_tipo_parametro=\d*/))
+filtroTipoParam = String(filtroTipoParam.replace(/&pp_tipo_parametro=/,""))
+//alert('filtroTipoParam: [' + filtroTipoParam + ']')
+
+filtroParametro = String(location.search.match(/&pp_parametro=[a-zA-Z0-9%]*/))  
+filtroParametro = String(filtroParametro.replace(/&pp_parametro=/,""))
+
+//alert('filtroParametro: [' + filtroParametro + ']')
+
+if ((filtroParametro == "null") || (filtroParametro == "")) {
+  txtfiltro = "Sin Filtro" }
+else if (filtroTipoParam == "1" ){
+  txtfiltro = "Agente = " + filtroParametro 
+}
+else if (filtroTipoParam == "2" ){
+  txtfiltro = "Receptor = " + filtroParametro 
+}
+else if (filtroTipoParam == "3" ){
+  txtfiltro = "<br>Delegaci&oacute;n = " + unescape(filtroParametro) 
+}
+else {
+  //alert('filtroParametro: [' + filtroParametro + '] - filtroTipoParam: [' + filtroTipoParam + ']' )
+ txtfiltro = "Sin Filtro"  
+}
+
+document.write("<\/script>");
+document.write("");
+document.write("");
+document.write("");
+document.write("    <!-- INI FORMULARIO -->");
+document.write("<div id='filtroTablas'>");
+document.write("    	<form action='' method='post' class='bloqueForm clearFix'>");
+document.write("         <div class='flt'>");
+document.write("		 		<p>Puede filtrar los datos por un agente determinado.</p>");
+document.write("		 		<label for='ITentradaNumero'>Nº agente:</label>");
+document.write("		 		<span id=\"SPANentradaDato\"><input type=\"text\" class=\"text\" id=\"ITentradaNumero\" name=\"entradaNumero\" maxlength=\"6\" /></span>");
+document.write("		 		<span><input id=\"enviar\" type=\"button\" class=\"btn01\" value=\"Filtrar\" onclick=\"enviarForm();\" /></span>");
+document.write("		 		<em>Introduzca el número del agente sin el guión</em>");
+document.write("          </div>");
+document.write("          <div class='frt'>");
+document.write("		 		<p>Filtro actual: <script type=\"text/javascript\">document.write(txtfiltro)</script>  <input class=\"btn03\" type=\"button\" id=\"limpiar\" value=\"Eliminar Filtro\" onclick=\"limpiarFiltro();\"></p>");
+document.write("		  </div>");
+document.write("    	 </form>");
+document.write(" </div> ");
+
+	  // Para debug
+	  
+	  if ( getParam('pp_tipo_parametro')==1){
+	      // cambio el índice seleccionado al que viene por el parámetro
+		  //document.getElementById('selTipoFiltro').selectedIndex=0;
+		  // inicializo el valor del campo al que viene por el parámetro.
+		  document.getElementById("ITentradaNumero").value=getParam('pp_parametro');
+
+		  // Para la validación
+		  actualIndex=0;
+	      
+	  }
+	  
+document.write("	<\/script>");
+document.write("    <!-- 11:47 09\/06\/2009 - jasanchez - Fin -->");
+document.write("	");
+document.write("<!-- FIN HTML PORTLET FILTRO -->");
+document.write("");
+
+
+
+
+
+
+
+
+
+
+
+
+

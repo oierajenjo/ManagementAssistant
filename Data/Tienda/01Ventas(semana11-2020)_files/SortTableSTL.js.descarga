@@ -1,0 +1,249 @@
+/**
+ * Override the default handling for "date" datatypes. 
+ * Used to alter how the "string" value, ie: the value in the HTML 
+ * table cell, is converted into a Date value.
+ *
+ * There are corresponding methods for overriding other supported dataypes: 
+ *     sortTable.getNumberValue(stringValue, columnFormat)
+ *     sortTable.getStringValue(stringValue, columnFormat)
+ *
+ * @param stringValue - A String representation of the value extracted from HTML table cell
+ * @param columnFormat - The Date format that stringValue should adhere to
+ * @return any javascript object for stringValue that can be used in a comparison
+ */ 
+function opGetDateValueSTL(stringValue, columnFormat) {
+  var numberValue = 0;
+  numberValue = Date.parseString(stringValue, columnFormat).getTime();
+  return (isNaN(numberValue) ? 0 : numberValue);
+}
+
+function opGetNumberValueSTL(stringValue, columnFormat) {
+  var formatted = stringValue + "";
+  var unformatted = "";
+  var foundDecimal = 0;
+
+  if (formatted == "")
+    return (-1);
+
+  for (i=0; i <= formatted.length; i++) {
+    var thisChar = formatted.charAt(i);
+
+    if (thisChar == ",") {
+      foundDecimal = 1;
+      unformatted = unformatted + ".";
+    }
+    else if ((thisChar >= "0") && (thisChar <= "9"))
+      unformatted = unformatted + thisChar
+  }
+
+  if (unformatted.length == 0) 
+    return -1;
+  else
+    if (foundDecimal)
+      return parseFloat(unformatted);
+    else 
+      return parseInt(unformatted);
+}
+
+
+function opGetStringValueSTL(stringValue, columnFormat) {
+  var entrada = columnFormat + "";
+  
+  if (entrada == "")
+    return opSortTableGetStringValue(stringValue, columnFormat);
+  else
+    if (entrada == "inicialDiaSemana") {
+      var thisChar = stringValue.charAt(0);
+      if ((thisChar == "L") || (thisChar == "l"))
+        return "a";
+      else if ((thisChar == "M") || (thisChar == "m"))
+        return "b";
+      else if ((thisChar == "X") || (thisChar == "x"))
+        return "c";
+      else if ((thisChar == "J") || (thisChar == "j"))
+        return "d";
+      else if ((thisChar == "V") || (thisChar == "v"))
+        return "e";
+      else if ((thisChar == "S") || (thisChar == "s"))
+        return "f";
+      else if ((thisChar == "D") || (thisChar == "d"))
+        return "g";
+      else 
+        return "h";
+    }
+    else
+      return opSortTableGetStringValue(stringValue, columnFormat);
+}
+
+
+/**
+ * Sort the current table by the selected column. 
+ *
+ * @param column - Table header cell that was clicked
+ * @param columnType - Datatype for the column: ["string"|"number"|"date"]
+ * @param columnFormat - Format string used to decode the column value
+ */ 
+function opSortTableSTL(tableId, column, columnType, columnFormat) {
+  // Create a new sort table object for the given table and define the 
+  // column to sort by
+  var sortTable = new OpSortTable(document.getElementById("opTable"+tableId));
+  if (sortTable) {
+    // Override any datatype handling for: number, string, date
+    // Use null values for default handling
+    // See also: opGetDateValueSTL() above
+    sortTable.overrideTypeHandling(opGetNumberValueSTL, opGetStringValueSTL, opGetDateValueSTL);
+
+    // Now sort the table by the this column 
+    sortTable.sortByColumn(column, columnType, columnFormat);
+
+    var filaOrdenable = 0;
+  	for(var i=0; i<sortTable.tableToSort.rows.length; i++) { 
+  	  if (isMember(sortTable.tableToSort.rows[i], 'Ordenable')) {
+        filaOrdenable = i;
+      }
+  	} 
+  	
+  	/* añadido para el cebreado de la tabla usando la clase 'alt'  */
+  	var objTable = document.getElementById("opTable"+tableId),
+  		 objTbodyTable = objTable.getElementsByTagName("tbody")[0],
+  		 objTrsTbodyTable = objTbodyTable.getElementsByTagName("tr"),
+  		 lenTrs = objTrsTbodyTable.length, auxClassName, auxTr;
+  	
+  	for(var i = 0; i < lenTrs; i++){
+  		auxTr = objTrsTbodyTable[i];  		  		
+  		auxTr.className =  (i & 1) ? "" : "alt"; // si es par o impar con operador &  
+  		
+	}
+	/* fin añadido para el cebreado de la tabla usando la clase 'alt'  */
+	
+	/* añadido para poner la clase en la columna seleccionada */
+
+	var parentColumn = column.parentNode,
+		thsParentColumn = parentColumn.getElementsByTagName("th"),
+		claseOrdenacion = "criterioOrden",
+		lenThs = thsParentColumn.length, auxClassName;
+		
+	// borramos la clase de alguna columna anterior previamente seleccionada para ordenar
+	for(var i = 0; i < lenThs; i++){
+		auxClassName = thsParentColumn[i].className;		
+		if ( auxClassName.split(/\s+/g).indexOf(claseOrdenacion) >= 0 ){
+			thsParentColumn[i].className = auxClassName.replace(claseOrdenacion, " ").replace(/\s+/g, " ").trim();
+		}
+	}	
+	
+	column.className += " criterioOrden";
+	
+	/* fin añadido para poner la clase en la columna seleccionada */
+  		  	  	  	  		 	   	  	
+  /*	var estilo = sortTable.tableToSort.rows[filaOrdenable].cells[sortTable.columnIndex].style.textDecoration ;
+  	
+  	for(var i=0; i<sortTable.tableToSort.rows[filaOrdenable].cells.length; i++) { 
+  	  sortTable.tableToSort.rows[filaOrdenable].cells[i].style.textDecoration=''; 
+  	} 
+  
+    if (( estilo != null) && ( estilo == 'overline')) {
+      sortTable.tableToSort.rows[filaOrdenable].cells[sortTable.columnIndex].style.textDecoration='underline';
+    }
+    else {
+      sortTable.tableToSort.rows[filaOrdenable].cells[sortTable.columnIndex].style.textDecoration='overline';
+    }*/
+  }
+}
+
+/**
+ * Implementacion del metodo trim para String en caso que el navegador que lo ejecute no lo haga 
+ *
+ * version de MDN: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/String/Trim?redirectlocale=en-US&redirectslug=Core_JavaScript_1.5_Reference%2FGlobal_Objects%2FString%2FTrim
+ */
+if(!String.prototype.trim) {
+  String.prototype.trim = function () {
+    return this.replace(/^\s+|\s+$/g,'');
+  };
+}
+
+/**
+ * Implementacion del metodo indexOf para Arrays en caso que el navegador que lo ejecute no lo haga 
+ *
+ * version de MDN: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Array/indexOf
+ */
+
+if (!Array.prototype.indexOf) {
+    Array.prototype.indexOf = function (searchElement /*, fromIndex */ ) {
+        "use strict";
+        if (this == null) {
+            throw new TypeError();
+        }
+        var t = Object(this);
+        var len = t.length >>> 0;
+        if (len === 0) {
+            return -1;
+        }
+        var n = 0;
+        if (arguments.length > 0) {
+            n = Number(arguments[1]);
+            if (n != n) { // shortcut for verifying if it's NaN
+                n = 0;
+            } else if (n != 0 && n != Infinity && n != -Infinity) {
+                n = (n > 0 || -1) * Math.floor(Math.abs(n));
+            }
+        }
+        if (n >= len) {
+            return -1;
+        }
+        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
+        for (; k < len; k++) {
+            if (k in t && t[k] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    }
+}
+
+/**
+ * Define the behaviour of the header cell when the user enters the cell. 
+ *
+ * @param elem - Table's header cell element to change
+ */ 
+function opSetFocusSTL(elem) {
+  elem.className = "SetFocus";
+}
+
+
+/**
+ * Define the behaviour of the header cell when the user leaves the cell. 
+ *
+ * @param elem - Table's header cell element to change
+ */ 
+function opDropFocusSTL(elem) {
+  elem.className = "DropFocus";
+}
+
+
+/**
+ * Determina si el elemento especificado es miembro de la clase
+ * especificada. La función está optimizada para el caso habitual en el que
+ * la propiedad className contiene un único classname. Pero también gestiona
+ * los casos en los que contiene una lista de clases separados por espacios 
+ * en blanco.
+ */
+function isMember(element, classname) {
+  var classes = element.className;  // Obtenemos la lista de clases
+  if (!classes) return false;             // No se han definido clases
+  if (classes == classname) return true;  // Coincidencia exacta
+
+  // No coinciden exactamente, sino hay espacio en blanco, entonces
+  // este elemento no es miembro de la clase
+  var whitespace = /\s+/;
+  if (!whitespace.test(classes)) 
+    return false;
+
+  // Si llegamos a este punto, el elemento es miembro de más de una clase
+  // y debemos comprobarlas individualmente .
+  var c = classes.split(whitespace);  // partimos por los espacios en blanco
+  for(var i = 0; i < c.length; i++) { // Recorremos las clases
+      if (c[i] == classname) return true;  // y comprobamos si coincide
+  }
+
+  return false;  // No coincide con ninguna de las clases
+}

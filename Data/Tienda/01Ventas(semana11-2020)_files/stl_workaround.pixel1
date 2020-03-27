@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!--  Copyright (c) 1999, 2003, Oracle. All rights reserved. -->
+<!--  login-ex.jsp : Example SSO login page -->
+<!-- *********************************************************** -->
+<!-- Personalizacion de la pagina de conexión de portal.stl.es   -->
+<!-- 2006-01-18: IFA                                             -->
+<!-- 2009-09-11: IFA - Nueva imagen corporativa                  --> 
+<!-- 2009-10-07: IFA - Nueva version con ESTILA                  --> 
+<!-- 2018-09-22: IFA - Añadido teléfono 91 348 91 00             --> 
+<!-- 2018-12-13: IFA - Cambio teléfono 902 a 900                 --> 
+<!-- *********************************************************** -->
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-ES" xml:lang="es-ES">
+<head>
+
+<title>Autenticaci&oacute;n</title>
+ 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+ 
+<link rel="stylesheet" href="/css/styles.css" />
+
+	<!--[if lte IE 7]>
+		<link rel="stylesheet" href="/css/fixIE.css" />
+	<![endif]-->
+	<!--[if IE 8]>
+		<link rel="stylesheet" href="/css/fixIE8.css" />
+	<![endif]-->
+</head>
+
+<body id="login">
+
+
+<div id="header">
+	
+		<div id="topLinks">
+		
+			<div class="clearFix">
+				
+				
+				<div class="frt">
+				
+					<span class="user">Atenci&oacute;n a usuarios: 900 11 33 81 - 91 348 91 00</span>
+					
+				
+				
+				</div>
+				
+			
+			</div>
+			
+			
+		
+		
+		</div>
+		<div id="entry">
+		
+		
+			<div id="logo">
+				<div>
+					<img src="/imgs/logo-loterias.png" alt="logotipo de Loter&iacute;as del Estado" />
+					<img src="/imgs/logo-stila.png" alt="logotipo de eSTILA" />
+				</div>
+			</div>
+            
+            <form method="post" action="/sso/auth" name="loginForm" id="form_login" autocomplete="off" class="login">
+            
+            	<input type="hidden" name="v" value="v1.4" />
+	            <input type="hidden" name="site2pstoretoken" value="v1.4~804B75E0~702560605EF9B83677E87E523B92996352998E3B26CFD135687EF894B408367E26F38D3116A370FAFE61238DBBB2040844DAFC006113BE090E6B7BA2CFCA28B78437056EB48EA162ED23FEB97A0C3AE71D5AC7E40DC77E4A87EC429599DD5214C580C8882AAB4D49019EE7694E4CFCAFAF13A556354F49F42054AC4195BE08B07BFB5EE38073F886D7347823F7B7C7DB1FC563283E7393E33A75348C39F0C6983D08BF1C86F75A3ED72983763E03898FD2437E36256333CF4ECDDF8388959D55C11DD29A092D55BC" />
+    	        <input type="hidden" name="locale" value="" />
+            	<fieldset>
+                	<span class="title">Autenticaci&oacute;n</span>
+                    <p>Introduzca su nombre de usuario y contrase&ntilde;a para conectarse</p>
+                    
+                    <div class="clearFix">
+    	 	       	        <div class="flt">
+   					                 <label for="ssousername">
+   					                 	<span>Usuario:&nbsp;</span>
+   					                     <input type="text" name="ssousername" size="30" maxlength="50" value="" id="ssousername" />
+   					                 </label>
+   					                 <label for="password">
+   					                 	<span>Contrase&ntilde;a:&nbsp;</span>
+   					                     
+   					                     <input type="password" name="password" maxlength="30" value="" id="password" />
+   					                 </label>
+   					                 <div class="btn">
+   					                 
+   					                 	<input type="reset" NAME="p_request" value="Cancelar" class="btn02" /> 
+   					                 	<input type="submit" value="Conectar" class="btn01" />
+   					                 
+   					                     
+   					                 </div>
+   					        </div>
+   					        
+
+   
+				    
+				    </div>    	       
+                            
+				</fieldset>	
+					
+			</form>
+			
+			
+		
+			
+		
+		</div>
+	
+	
+	
+	</div>
+	
+	
+	<div id="footer">
+	
+		<div class="clearFix">
+			<span>eSTILA - e-Servicios T&eacute;cnicos de Informaci&oacute;n de Loter&iacute;as y Apuestas</span>
+		</div>
+			
+	</div>
+	</body>
+</html>
+
+
+
+
