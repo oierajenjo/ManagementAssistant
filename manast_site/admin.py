@@ -1,3 +1,12 @@
 from django.contrib import admin
+from manast_site.models import *
 
-# Register your models here.
+
+class ProfileAdmin(admin.ModelAdmin):
+    # list_filter = ('',)
+    list_display = ('user', 'pk')
+    # search_fields = ['']
+
+
+admin.site.register(Profile, ProfileAdmin)
+
