@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'manast_site.apps.ManastSiteConfig',
+    'manast_database.apps.ManastDatabaseConfig'
 ]
 
 MIDDLEWARE = [
@@ -120,4 +122,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'manast_site/static/'
+
+API_KEY = "your-key-here"
+DEV_MAIL = "your-mail-here"
+
+BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+
+try:
+    from GameHoarder.local_settings import *
+except ImportError:
+    pass
