@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from manast_site.models import Profile, Shop
+
 TYPE = [
     (1, _("Employee")),
     (2, _("Clothes")),
@@ -13,10 +15,11 @@ TYPE = [
 
 
 class Item(models.Model):
-    item_id = models.CharField(max_length=16, verbose_name=_("item ID"), related_name='item ID', unique=True,
-                               on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, verbose_name=_("name"), related_name='name')
-    type = models.IntegerField(choices=TYPE, verbose_name=_("type"))
+    name = models.CharField(max_length=30, verbose_name=_("name_item"))
+    type = models.IntegerField(choices=TYPE, verbose_name=_("type_item"))
+    in_inventory = models.IntegerField(blank=True, verbose_name=_("in_inventory_item"))
+
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -27,8 +30,12 @@ class Item(models.Model):
 
 
 class Expense(models.Model):
-    item = models.ForeignKey(Item, verbose_name=_("item"), related_name='item', on_delete=models.CASCADE)
-    cost = models.FloatField(verbose_name=_("cost"))
+    item = models.ManyToManyField(Item)
+    quantity = models.IntegerField(verbose_name=_("quantity_expense"))
+    cost = models.FloatField(verbose_name=_("cost_expense"))
+    date = models.DateField(verbose_name=_("date_expense"))
+
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Expense")
@@ -36,11 +43,13 @@ class Expense(models.Model):
 
 
 class Sale(models.Model):
-    item = models.ForeignKey(Item, verbose_name=_("item"), related_name='item', on_delete=models.CASCADE)
-    quantity = models.IntegerField(verbose_name=_("quantity"))
-    price = models.FloatField(verbose_name=_("price"))
-    cost = models.FloatField(verbose_name=_("cost"))
-    date = models.DateField(verbose_name=_("date"), related_name='date')
+    item = models.ManyToManyField(Item)
+    quantity = models.IntegerField(verbose_name=_("quantity_sale"))
+    price = models.FloatField(blank=True, verbose_name=_("price_sale"))
+    cost = models.FloatField(verbose_name=_("cost_sale"))
+    date = models.DateField(verbose_name=_("date_sale"))
+
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = _("Sale")
