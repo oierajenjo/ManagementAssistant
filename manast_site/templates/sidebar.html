@@ -37,21 +37,15 @@
             <h3>{% trans "Shops" %}</h3>
             <ul class="nav side-menu">
                 {% for shop in profile.shops.all %}
-{#                <li><a href="{% url "shop_view" pk = shop.id%}"><i class="fa fa-table"></i><h4>{{ shop.name }}</h4><span class="fa fa-chevron-down"></span></a>#}
-                <li><a href=" "><i class="fa fa-table"></i><h4>{{ shop.name }}</h4><span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="">{% trans "Sales" %}</a></li>
-                        <li><a href="">{% trans "Expenses" %}</a></li>
-                        <li><a href="">{% trans "Stats" %}</a></li>
-                        <li><a href="">{% trans "Predictions" %}</a></li>
-                    </ul>
-{#                    <ul class="nav child_menu">#}
-{#                        <li><a href="{% url "sales_table" pk = shop.id%}">{% trans "Sales" %}</a></li>#}
-{#                        <li><a href="{% url "expenses_table" pk = shop.id%}">{% trans "Expenses" %}</a></li>#}
-{#                        <li><a href="{% url "stats_table" pk = shop.id%}">{% trans "Stats" %}</a></li>#}
-{#                        <li><a href="{% url "predictions_table" pk = shop.id%}">{% trans "Predictions" %}</a></li>#}
-{#                    </ul>#}
-                </li>
+                    <li><a><h3>{{ shop.name }}<span class="fa fa-chevron-down"></span></h3></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{% url "shop_view" pk=shop.pk%}">{% trans "Shop Info" %}</a></li>
+                            <li><a href="{% url "sales_table" pk=shop.pk%}">{% trans "Sales" %}</a></li>
+                            <li><a href="{% url "expenses_table" pk=shop.pk%}">{% trans "Expenses" %}</a></li>
+                            <li><a href="{% url "stats_table" pk=shop.pk%}">{% trans "Stats" %}</a></li>
+                            <li><a href="{% url "predictions_table" pk=shop.pk%}">{% trans "Predictions" %}</a></li>
+                        </ul>
+                    </li>
                 {%  endfor %}
             </ul>
         </div>
