@@ -131,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/manast_site/static/'
 
 API_KEY = "your-key-here"
 DEV_MAIL = "your-mail-here"
