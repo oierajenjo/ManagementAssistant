@@ -59,7 +59,7 @@ ROOT_URLCONF = 'ManagementAssistant.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'manast_site/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -104,13 +104,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Provide a lists of languages which your site supports.
+LANGUAGES = (
+    ('en', 'English'),
+    ('es', 'Spanish'),
+)
 
+# Tell Django where the project's translation files should be.
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'Europe/Madrid'
+TIME_ZONE = 'CET'
 
 USE_I18N = True
 
@@ -122,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = 'manast_site/static/'
+STATIC_URL = '/static/'
 
 API_KEY = "your-key-here"
 DEV_MAIL = "your-mail-here"

@@ -1,4 +1,6 @@
-Django
+Django==2.2
 django-betterforms
 requests
 pillow
+Unidecode
+urllib3

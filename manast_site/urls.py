@@ -1,15 +1,25 @@
 from django.conf.urls import url
 from django.urls import path
-from . import views
+
+from manast_site import views
 from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('', views.index, name='index'),
+
     path('login', views.login_register, name='login'),
     path('logout', views.logout, name='logout'),
-    path('profile', views.profileView, name='profileView'),
+    path('profile', views.profile_view, name='profile_view'),
+    path('edit_user', views.edit_user, name='edit_user'),
 
-    path('export', views.download_csv, name='download_csv'),
+    path('shop/<int:pk>/', views.shop_view, name='shop_with_pk'),
+    path('shop/<int:pk>/sales_table/', views.sales_table, name='sales_table'),
+    path('shop/<int:pk>/expenses_table/', views.expenses_table, name='expenses_table'),
+    path('shop/<int:pk>/stats_table/', views.stats_table, name='stats_table'),
+    path('shop/<int:pk>/predictions_table/', views.predictions_table, name='predictions_table'),
+
+    # path('export', views.download_csv, name='download_csv'),
 
     url(r'^password_reset/$',
         auth_views.PasswordResetView.as_view(template_name="registration/password_reset_form.html"),

@@ -1,8 +1,7 @@
 import csv
 import json
 
-from django.contrib import auth
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.db.models import Q
@@ -10,15 +9,16 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
-from .forms import *
-from manast_site.models import Profile
+from manast_site.forms import *
+from manast_site.models import *
+from .functions import *
 
 
 def index(request):
     if not request.user.is_authenticated:
-        return render(request, "landing.html")
+        return render(request, "index.html")
 
-    return profileView(request)
+    return profile_view(request)
 
 
 def login_register(request):
@@ -34,8 +34,8 @@ def login_register(request):
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
-
             user = authenticate(username=username, password=password)
+
             if user is not None:
                 if user.is_active:
                     # faster than len()
@@ -43,9 +43,9 @@ def login_register(request):
                         profile = Profile(user=user)
                         profile.save()
                     login(request, user)
-                    return HttpResponseRedirect('/')
+                    return HttpResponseRedirect('profile')
     else:
-        form = UserForm
+        form = UserForm()
 
     token = {}
     token.update(csrf(request))
@@ -55,22 +55,37 @@ def login_register(request):
 
 
 @login_required(login_url='login')
-def profileView(request, pk=None):
-    profile = Profile.objects.get(user=request.user)
-
-    return render(request, "account/profileView.html")
+def profile_logout(request):
+    logout(request)
+    return HttpResponseRedirect('login')
 
 
 @login_required(login_url='login')
-def logout(request):
-    auth.logout(request)
-    return HttpResponseRedirect("login")
+def profile_view(request):
+    profile = Profile.objects.get(user=request.user)
+
+    context = {
+        "profile": profile,
+    }
+    return render(request, "account/profile_view.html", context)
+
+
+@login_required(login_url='login')
+def shop_view(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    context = {
+        "profile": profile,
+        "shop": shop
+    }
+    return render(request, "shop/shop_view.html", context)
 
 
 @login_required(login_url='login')
 def edit_user(request):
-    custom = Tag.objects.filter(user=request.user)
     profile = Profile.objects.get(user=request.user)
+
     if request.method == 'POST':
         form = UserAvatarForm(request.POST, request.FILES, instance={
             'user': request.user,
@@ -81,34 +96,105 @@ def edit_user(request):
             return HttpResponseRedirect('/')
     else:
         form = UserAvatarForm
+
     token = {}
     token.update(csrf(request))
     token['form'] = form
 
     return render(request, 'account/edit_user.html',
-                  {'tags': custom, 'user': request.user, 'profile': profile})
+                  {'user': request.user, 'profile': profile})
 
 
 @login_required(login_url='login')
-def download_csv(request):
-    if request.method == 'POST':
-        response = HttpResponse(content_type='text/csv')
-        data = request.POST.getlist("data")
+def sales_table(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
 
-        response['Content-Disposition'] = 'attachment; filename="%s.csv"' % request.POST.get("filename")
+    sales = get_all_sales(shop)
 
-        writer = csv.writer(response)
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "sales": sales,
+    }
 
-        headers = json.loads(data[0].replace("'", '"'))
-        writer.writerow(headers.keys())
+    return render(request, "shop/tables/sales_table.html", context)
 
-        for row in data:
-            title = json.loads(row.replace("'", '"'))
 
-            if 'original_title' in title:
-                title["game"] = title["original_title"]
-                title.pop("original_title")
+@login_required(login_url='login')
+def expenses_table(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
 
-            writer.writerow(list(title.values()))
+    expenses = get_all_expenses(shop)
 
-        return response
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "expenses": expenses,
+    }
+
+    return render(request, "shop/tables/expenses_table.html", context)
+
+
+@login_required(login_url='login')
+def stats_table(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    expenses = get_all_expenses(shop)
+    sales = get_all_sales(shop)
+
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "sales": sales,
+        "expenses": expenses,
+    }
+
+    return render(request, "shop/tables/stats_table.html", context)
+
+
+@login_required(login_url='login')
+def predictions_table(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    expenses = get_all_expenses(shop)
+    sales = get_all_sales(shop)
+
+    predictions = None
+
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "sales": sales,
+        "expenses": expenses,
+        "predictions": predictions
+    }
+
+    return render(request, "shop/tables/predictions_table.html", context)
+
+# @login_required(login_url='login')
+# def download_csv(request):
+#     if request.method == 'POST':
+#         response = HttpResponse(content_type='text/csv')
+#         data = request.POST.getlist("data")
+#
+#         response['Content-Disposition'] = 'attachment; filename="%s.csv"' % request.POST.get("filename")
+#
+#         writer = csv.writer(response)
+#
+#         headers = json.loads(data[0].replace("'", '"'))
+#         writer.writerow(headers.keys())
+#
+#         for row in data:
+#             title = json.loads(row.replace("'", '"'))
+#
+#             if 'original_title' in title:
+#                 title["game"] = title["original_title"]
+#                 title.pop("original_title")
+#
+#             writer.writerow(list(title.values()))
+#
+#         return response

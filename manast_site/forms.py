@@ -21,8 +21,7 @@ class AvatarForm(forms.ModelForm):
         try:
             main, sub = avatar.content_type.split('/')
             if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
-                raise forms.ValidationError(u'Please use a JPEG, '
-                                            'GIF or PNG image.')
+                raise forms.ValidationError(u'Please use a JPEG, GIF or PNG image.')
         except AttributeError:
             pass
         return avatar

@@ -10,7 +10,7 @@
     <!-- menu profile quick info -->
     <div class="profile clearfix">
         <div class="profile_pic">
-            <a href="{% url "profileView" %}">
+            <a href="{% url "profile_view" %}">
                 <img src="/images/{{ profile.avatar }}" alt="{{ profile.user.username }}" class="img-circle profile_img">
             </a>
         </div>
@@ -28,23 +28,29 @@
         <div class="menu_section">
             <h3>{% trans "General" %}</h3>
             <ul class="nav side-menu">
-                <li><a href="{% url "index" %}"><i class="fa fa-home"></i> {% trans "Home" %} <span
-                        class="fa"></span></a></li>
-                <li><a href="{% url "search_users" %}"><i class="fa fa-users"></i> {% trans "Users" %} <span
-                        class="fa"></span></a></li>
+{#                <li><a href="{% url "index" %}"><i class="fa fa-home"></i> {% trans "Home" %} <span class="fa"></span></a></li>#}
+{#                <li><a href="{% url "search_users" %}"><i class="fa fa-users"></i> {% trans "Users" %} <span#}
+{#                        class="fa"></span></a></li>#}
             </ul>
         </div>
         <div class="menu_section">
             <h3>{% trans "Shops" %}</h3>
             <ul class="nav side-menu">
-                {% for shop in shops %}
-                <li><a href="{% url "shop_view" %}"><i class="fa fa-table"></i><h4>{{ shop.name }}</h4><span class="fa fa-chevron-down"></span></a>
+                {% for shop in profile.shops.all %}
+{#                <li><a href="{% url "shop_view" pk = shop.id%}"><i class="fa fa-table"></i><h4>{{ shop.name }}</h4><span class="fa fa-chevron-down"></span></a>#}
+                <li><a href=" "><i class="fa fa-table"></i><h4>{{ shop.name }}</h4><span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                        <li><a href="{% url "sales_table" %}">{% trans "Sales" %}</a></li>
-                        <li><a href="{% url "expenses_table" %}">{% trans "Expenses" %}</a></li>
-                        <li><a href="{% url "stats_table" %}">{% trans "Stats" %}</a></li>
-                        <li><a href="{% url "predictions_table" %}">{% trans "Predictions" %}</a></li>
+                        <li><a href="">{% trans "Sales" %}</a></li>
+                        <li><a href="">{% trans "Expenses" %}</a></li>
+                        <li><a href="">{% trans "Stats" %}</a></li>
+                        <li><a href="">{% trans "Predictions" %}</a></li>
                     </ul>
+{#                    <ul class="nav child_menu">#}
+{#                        <li><a href="{% url "sales_table" pk = shop.id%}">{% trans "Sales" %}</a></li>#}
+{#                        <li><a href="{% url "expenses_table" pk = shop.id%}">{% trans "Expenses" %}</a></li>#}
+{#                        <li><a href="{% url "stats_table" pk = shop.id%}">{% trans "Stats" %}</a></li>#}
+{#                        <li><a href="{% url "predictions_table" pk = shop.id%}">{% trans "Predictions" %}</a></li>#}
+{#                    </ul>#}
                 </li>
                 {%  endfor %}
             </ul>

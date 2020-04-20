@@ -3,10 +3,18 @@ from manast_site.models import *
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    # list_filter = ('',)
+    list_filter = ('user',)
     list_display = ('user', 'pk')
     # search_fields = ['']
 
 
-admin.site.register(Profile, ProfileAdmin)
+class ShopAdmin(admin.ModelAdmin):
+    list_filter = ('name',)
+    list_display = ('name', 'pk')
 
+
+# search_fields = ['']
+
+
+admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Shop, ShopAdmin)
