@@ -1,10 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base_site.html" %}
+{% load i18n %}
+{% load static %}
 
-</body>
-</html>
+{% block title %} {{ shop.name }} {% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="clearfix"></div>
+{#        {% include "social_media.html" %}#}
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+                            <div class="profile_img">
+                                <div id="crop-avatar">
+                                    <!-- Current avatar -->
+                                    <a href="{% url "edit_user" %}">
+                                        <img class="img-circle profile_img"
+                                             src="/images/{{ shop.photo }}"
+                                             alt="Avatar" title="{% trans "Edit Shop Info" %}">
+                                    </a>
+                                </div>
+                            </div>
+                            <h3>{{ shop.name }}</h3>
+                            <h2>{{ shop.direction }}</h2>
+                            <h2>{{ shop.zip_code }}</h2>
+                            <a class="btn btn-primary nav-link" href="{% url  'edit_user' %}">
+                                {% trans "Edit Shop Info" %}
+                                </a>
+                            <br/>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
+                                    <li role="presentation" class="active">
+                                        <a href="#tab_games" id="home-tab" role="tab" data-toggle="tab"
+                                           aria-expanded="true">{% trans "Games" %}</a>
+                                    </li>
+                                    <li role="presentation" class="">
+                                        <a href="#tab_friends" role="tab" id="friends-tab" data-toggle="tab"
+                                           aria-expanded="false">{% trans "Friends" %}</a>
+                                    </li>
+                                    <!--                    <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Friends</a>-->
+                                    <!--                    </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}

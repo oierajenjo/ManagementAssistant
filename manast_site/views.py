@@ -106,6 +106,35 @@ def edit_user(request):
 
 
 @login_required(login_url='login')
+def edit_shop(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = ShopPhotoForm(request.POST, request.FILES, instance={
+            'shop': shop,
+            'photo': Shop.objects.get(pk=pk),
+        })
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = ShopPhotoForm
+
+    token = {}
+    token.update(csrf(request))
+    token['form'] = form
+
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "photo": shop
+    }
+
+    return render(request, 'shop/edit_shop.html', context)
+
+
+@login_required(login_url='login')
 def sales_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -175,6 +204,7 @@ def predictions_table(request, pk):
 
     return render(request, "shop/tables/predictions_table.html", context)
 
+
 # @login_required(login_url='login')
 # def download_csv(request):
 #     if request.method == 'POST':
@@ -198,3 +228,6 @@ def predictions_table(request, pk):
 #             writer.writerow(list(title.values()))
 #
 #         return response
+#
+# def calendar(request):
+#     return render(request, 'calendar_pic.html')
