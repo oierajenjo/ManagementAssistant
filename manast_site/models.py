@@ -71,10 +71,11 @@ class Shop(models.Model):
 
     direction = models.CharField(max_length=50, blank=True, verbose_name=_("direction_shop"))
     zip_code = models.CharField(max_length=5, blank=True, verbose_name=_("zip_code_shop"))
+    phone = models.IntegerField(max_length=9, blank=True, verbose_name=_("phone_shop"))
 
     opening_times = models.ManyToManyField(OpeningHours, verbose_name=_("opening_hours_shop"),
                                            related_name='opening_hours_shop', blank=True)
-    holidays = models.ManyToManyField(Holiday, verbose_name=_("holidays"), related_name='holidays', blank=True)
+    holidays = models.ManyToManyField(Holiday, verbose_name=_("holidays_shop"), related_name='holidays_shop', blank=True)
 
     def __str__(self):
         return self.name
@@ -98,10 +99,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='avatars', blank=True, default="avatars/user.png",
                                verbose_name=_("avatar"), storage=MediaFileSystemStorage())
 
-    direction = models.CharField(max_length=50, blank=True, verbose_name=_("direction_user"))
-    zip_code = models.CharField(max_length=5, blank=True, verbose_name=_("zip_code_user"))
-
-    shop = models.ManyToManyField(Shop, blank=True, verbose_name=_("shops_user"))
+    shops = models.ManyToManyField(Shop, blank=True, verbose_name=_("shops_user"))
 
     def save(self, *args, **kwargs):
         super(Profile, self).save(*args, **kwargs)

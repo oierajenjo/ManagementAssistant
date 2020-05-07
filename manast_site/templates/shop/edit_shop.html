@@ -6,7 +6,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                      <h2>{% trans 'Modify user' %}
+                      <h2>{% trans 'Modify shop' %}
                           <small></small>
                       </h2>
                     <ul class="nav navbar-right panel_toolbox">
@@ -15,87 +15,140 @@
                   </div>
                   <div class="x_content">
                     <br />
-                      <form action="{% url "edit_user" %}" enctype="multipart/form-data" method="post" class="form-horizontal form-label-left">{% csrf_token %}
+                      <form action="{% url "edit_shop" pk=shop.pk %}" enctype="multipart/form-data" method="post" class="form-horizontal form-label-left">{% csrf_token %}
                           <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                     for="id_user-first_name">{% trans 'Name' %}
-                                 </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                     for="id_shop-name">{% trans 'Name' %}
+                                </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                        <input id="id_user-first_name" type="text" name="user-first_name" maxlength="100" required="required" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ user.first_name }}"/>
-                                </div>
-                          </div>
-                          <br>
-
-                          <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                     for="id_user-last_name">{% trans 'Surname' %}
-                                 </label>
-                                <div class="col-md-5 col-sm-6 col-xs-12">
-                                        <input id="id_user-last_name" type="text" name="user-last_name" maxlength="100" required="required" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ user.last_name }}"/>
+                                    <input id="id_shop-name" type="text" name="shop-name" maxlength="100" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.name }}"/>
                                 </div>
                           </div>
                           <br>
                           <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_user-username">Username
-                                 </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                     for="id_shop-direction">{% trans 'Direction' %}
+                                </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                        <input id="id_user-username" type="text" name="user-username" maxlength="100" required="required" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ user.username }}"/>
+                                    <input id="id_shop-direction" type="text" name="shop-direction" maxlength="100" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.direction }}"/>
                                 </div>
                           </div>
                           <br>
                           <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_user-email">Email
-                                 </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-zip_code">{% trans 'Zip Code' %}
+                                </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                        <input id="id_user-email" type="email" name="user-email" maxlength="100" required="required" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ user.email }}"/>
+                                    <input id="id_shop-zip_code" type="text" name="shop-zip_code" maxlength="5" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.zip_code }}"/>
                                 </div>
                           </div>
                           <br>
                           <div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                     for="id_user-password1">{% trans 'Password' %}<span class="required">*</span>
-                                 </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-phone">{% trans 'Phone Number' %}
+                                </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                    <input id="id_user-password1" type="password" name="user-password1" maxlength="100"
-                                           required="required" class="form-control col-md-7 col-xs-12"
-                                           placeholder="{% trans 'Repeat password' %}"/>
-                                </div>
-                          </div>
-                          <br><div class="item form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                     for="id_user-password2">{% trans 'Password' %}<span
-                                      class="required">*</span>
-                                 </label>
-                                <div class="col-md-5 col-sm-6 col-xs-12">
-                                    <input id="id_user-password2" type="password" name="user-password2" maxlength="100"
-                                           required="required" class="form-control col-md-7 col-xs-12"
-                                           placeholder="{% trans 'Repeat Password' %}"/>
+                                    <input id="id_shop-phone" type="tel" name="shop-phone" placeholder="999999999" pattern="999999999" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.phone }}"/>
                                 </div>
                           </div>
                           <br>
-{##}
+                          <br>
                           <div class="form-group">
-                              <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                     for="id_avatar-avatar">{% trans 'Avatar' %}
-                                 </label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12"
+                                     for="id_shop-photo">{% trans 'Photo' %}
+                                </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                        <input id="id_avatar-avatar" type="file" name="avatar-avatar" value="{{ user.avatar }}"/>
+                                    <input id="id_shop-photo" type="file" name="shop-photo" value="{{ shop.photo }}"/>
                                 </div>
                           </div>
                           <br>
 
-                          <div class="form-group" align="left">
-                              <div >
-                                  <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-save"></i>
-                                      &nbsp; {% trans 'Save' %}</button>
-                              </div>
-                          </div>
+                          <br>
+                          <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-opening_times">{% trans 'Opening Times' %}
+                                </label>
+                                <div class="col-md-5 col-sm-6 col-xs-12">
+                                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans "Weekday" %}</th>
+                                                <th>{% trans "Entry Hour" %}</th>
+                                                <th>{% trans "Rest Hour" %}</th>
+                                                <th>{% trans "Comeback Hour" %}</th>
+                                                <th>{% trans "Closing Hour" %}</th>
+                                            </tr>
+                                        </thead>
 
+                                        <tbody>
+                                            <tr>
+                                                {% for wd in shop.opening_times.all %}
+                                                    <td type="text" data-id="{{wd.get_op_weekday_display}}" >{{wd.get_op_weekday_display}}</td>
+                                                    <td contenteditable='true' type="time" data-id="from_hour-{{wd.get_op_weekday_display}}" data-old_value='{{wd.from_hour}}' >{{wd.from_hour}}</td>
+                                                    <td contenteditable='true' type="time" data-id="rest_hour-{{wd.get_op_weekday_display}}" data-old_value='{{wd.rest_hour}}' >{{wd.rest_hour}}</td>
+                                                    <td contenteditable='true' type="time" data-id="comeback_hour-{{wd.get_op_weekday_display}}" data-old_value='{{wd.comeback_hour}}' >{{wd.comeback_hour}}</td>
+                                                    <td contenteditable='true' type="time" data-id="to_hour-{{wd.get_op_weekday_display}}" data-old_value='{{wd.to_hour}}' >{{wd.to_hour}}</td>
+                                                {% endfor %}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br>
+
+                            <br>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-holidays">{% trans 'Holidays' %}
+                                </label>
+                                <div class="col-md-5 col-sm-6 col-xs-12">
+                                    <table id="datatable-buttons holiday-table" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>{% trans "Name" %}</th>
+                                                <th>{% trans "Date" %}</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                            {% for hs in shop.holidays.all %}
+                                                <td contenteditable='true' type="text" data-id="{{hs.name}}" data-old_value='{{hs.name}}' >{{hs.name}}</td>
+                                                <td contenteditable='true' type="date" data-id="date-{{hs.name}}" data-old_value='{{hs.date}}' >{{hs.date}}</td>
+                                            {% endfor %}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                <button onclick="myCreateFunction()">Create row</button>
+                                <button onclick="myDeleteFunction()">Delete row</button>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="form-group" align="left">
+                                <div >
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-save"></i> {% trans 'Save' %}</button>
+                                </div>
+                            </div>
                       </form>
                   </div>
                 </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <script>
+    function myCreateFunction() {
+      var table = document.getElementById("holiday-table");
+      var row = table.insertRow(0);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      cell1.innerHTML = "NEW CELL1";
+      cell2.innerHTML = "NEW CELL2";
+    }
+
+    function myDeleteFunction() {
+      document.getElementById("holiday-table").deleteRow(0);
+    }
+    </script>
+{% endblock javascripts %}

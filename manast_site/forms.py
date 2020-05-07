@@ -8,13 +8,13 @@ from betterforms.multiform import MultiModelForm
 class UserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'password1', 'password2',)
+        fields = ('first_name', 'last_name', 'email', 'password1', 'password2',)
 
 
 class ShopForm(UserCreationForm):
     class Meta:
         model = Shop
-        fields = ('name', 'direction', 'zip_code', 'opening_hours_shop', 'holidays',)
+        fields = ('name_shop', 'direction_shop', 'zip_code_shop', 'phone_shop', 'opening_hours_shop', 'holidays_shop',)
 
 
 class AvatarForm(forms.ModelForm):
@@ -61,3 +61,8 @@ class ShopPhotoForm(MultiModelForm):
         'shop': ShopForm,
         'photo': PhotoForm,
     }
+
+
+class HolidayForm(forms.ModelForm):
+    model = Holiday
+    fields = ('name', 'date',)

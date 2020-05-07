@@ -14,11 +14,11 @@ from manast_site.models import *
 from .functions import *
 
 
-def index(request):
-    if not request.user.is_authenticated:
-        return render(request, "index.html")
-
-    return profile_view(request)
+# def index(request):
+#     if not request.user.is_authenticated:
+#         return render(request, "index.html")
+#
+#     return profile_view(request)
 
 
 def login_register(request):
@@ -74,7 +74,7 @@ def profile_view(request):
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
-
+    form = HolidayForm()
     context = {
         "profile": profile,
         "shop": shop
