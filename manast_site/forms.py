@@ -14,7 +14,7 @@ class UserForm(UserCreationForm):
 class ShopForm(UserCreationForm):
     class Meta:
         model = Shop
-        fields = ('name_shop', 'direction_shop', 'zip_code_shop', 'phone_shop', 'opening_hours_shop', 'holidays_shop',)
+        fields = ('name', 'direction', 'zip_code', 'phone', 'opening_times', 'holidays',)
 
 
 class AvatarForm(forms.ModelForm):

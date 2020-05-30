@@ -30,7 +30,7 @@ def login_register(request):
             default = Group.objects.get(name="standard_user")
             user.groups.add(default)
             user.save()
-            return HttpResponseRedirect('login')
+            return HttpResponseRedirect('profile')
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')

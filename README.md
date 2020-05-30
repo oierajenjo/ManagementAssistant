@@ -38,6 +38,9 @@ random forest
 <!-- GETTING STARTED -->
 ## Getting Started
 
+```sh
+py manage.py runserver
+```
 
 ### Prerequisites
 * Create and environment

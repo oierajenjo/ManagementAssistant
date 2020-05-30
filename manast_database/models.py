@@ -48,12 +48,11 @@ class Item(models.Model):
 
 
 class Expense(models.Model):
-    item_exp = models.ManyToManyField(Item, on_delete=models.CASCADE)
+    item_exp = models.ManyToManyField(Item)
     quantity_exp = models.DecimalField(default=0.00, decimal_places=2, max_digits=10,
                                        verbose_name=_("quantity_expense"))
     cost_exp = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("cost_expense"))
-    date_exp = models.DateField(default=date.today, input_formats=settings.DATE_INPUT_FORMATS,
-                                verbose_name=_("date_expense"))
+    date_exp = models.DateField(default=date.today, verbose_name=_("date_exp"))
     periodicity_exp = models.IntegerField(PERIODIC, default=1)
     shop_exp = models.ForeignKey(Shop, on_delete=models.CASCADE)
     repeat_exp = models.BooleanField(default=False, verbose_name=_("repeat_expense"))
@@ -99,13 +98,13 @@ class Expense(models.Model):
 
 
 class Sale(models.Model):
-    item_sale = models.ManyToManyField(Item, on_delete=models.CASCADE)
+    item_sale = models.ManyToManyField(Item)
     quantity_sale = models.DecimalField(default=0.0000, decimal_places=4, max_digits=10,
                                         verbose_name=_("quantity_sale"))
     price_sale = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("price_sale"))
     # discount = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("discount"))
     cost_sale = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("cost_sale"))
-    date_sale = models.DateField(verbose_name=_("date_sale"))
+    date_sale = models.DateField(default=date.today, verbose_name=_("date_sale"))
     # final_value = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("final_value"))
 
     shop_sale = models.ForeignKey(Shop, on_delete=models.CASCADE)

@@ -38,8 +38,8 @@ class OpeningHours(models.Model):
     to_hour = models.TimeField(blank=True)
 
     class Meta:
-        ordering = ('weekday', 'from_hour')
-        unique_together = ('weekday', 'from_hour', 'rest_hour', 'comeback_hour', 'to_hour')
+        ordering = ('op_weekday', 'from_hour')
+        unique_together = ('op_weekday', 'from_hour', 'rest_hour', 'comeback_hour', 'to_hour')
 
     def __unicode__(self):
         if self.rest_hour is None and self.comeback_hour is None and self.from_hour is not None \
@@ -71,7 +71,7 @@ class Shop(models.Model):
 
     direction = models.CharField(max_length=50, blank=True, verbose_name=_("direction_shop"))
     zip_code = models.CharField(max_length=5, blank=True, verbose_name=_("zip_code_shop"))
-    phone = models.IntegerField(max_length=9, blank=True, verbose_name=_("phone_shop"))
+    phone = models.CharField(max_length=9, blank=True, verbose_name=_("phone_shop"))
 
     opening_times = models.ManyToManyField(OpeningHours, verbose_name=_("opening_hours_shop"),
                                            related_name='opening_hours_shop', blank=True)
