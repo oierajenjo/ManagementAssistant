@@ -27,29 +27,15 @@
                                     </a>
                                 </div>
                             </div>
-                            <h3>{{ profile.user }}</h3>
-                            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+
                             <a class="btn btn-primary nav-link" href="{% url  'edit_user' %}">
                                 {% trans "Edit Profile" %}
                                 </a>
                             <br/>
                         </div>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <div class="" role="tabpanel" data-example-id="togglable-tabs">
-                                <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                    <li role="presentation" class="active">
-                                        <a href="#tab_games" id="home-tab" role="tab" data-toggle="tab"
-                                           aria-expanded="true">{% trans "Games" %}</a>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <a href="#tab_friends" role="tab" id="friends-tab" data-toggle="tab"
-                                           aria-expanded="false">{% trans "Friends" %}</a>
-                                    </li>
-                                    <!--                    <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Friends</a>-->
-                                    <!--                    </li>-->
-                                </ul>
-                                </div>
-                            </div>
+                            <h3>{{ profile.user }}</h3>
+                            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
                         </div>
                     </div>
                 </div>

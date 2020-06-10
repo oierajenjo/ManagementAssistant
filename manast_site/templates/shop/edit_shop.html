@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "base_site.html" %}
 {% load i18n %}
 {% block content %}
     <div class="right_col" role="main">
@@ -46,7 +46,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-phone">{% trans 'Phone Number' %}
                                 </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                    <input id="id_shop-phone" type="tel" name="shop-phone" placeholder="999999999" pattern="999999999" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.phone }}"/>
+                                    <input id="id_shop-phone" type="tel" name="shop-phone" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ shop.phone }}"/>
                                 </div>
                           </div>
                           <br>
@@ -66,7 +66,7 @@
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-opening_times">{% trans 'Opening Times' %}
                                 </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
-                                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                                    <table id="datatable-buttons hour-table" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
                                                 <th>{% trans "Weekday" %}</th>
@@ -89,6 +89,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <button onclick="myCreateFunctionHour()">Create row</button>
+                                    <button onclick="myDeleteFunctionHour()">Delete row</button>
                                 </div>
                             </div>
                             <br>
@@ -115,8 +117,8 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                <button onclick="myCreateFunction()">Create row</button>
-                                <button onclick="myDeleteFunction()">Delete row</button>
+                                <button onclick="myCreateFunctionHol()">Create row</button>
+                                <button onclick="myDeleteFunctionHol()">Delete row</button>
                                 </div>
                             </div>
                             <br>
@@ -138,17 +140,21 @@
     {{ block.super }}
     <!-- Datatables -->
     <script>
-    function myCreateFunction() {
-      var table = document.getElementById("holiday-table");
-      var row = table.insertRow(0);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      cell1.innerHTML = "NEW CELL1";
-      cell2.innerHTML = "NEW CELL2";
-    }
+        function myCreateFunctionHour() {
+            var table = document.getElementById("hour-table");
+            var row = table.insertRow(0);
+        }
 
-    function myDeleteFunction() {
-      document.getElementById("holiday-table").deleteRow(0);
-    }
+        function myDeleteFunctionHour() {
+            document.getElementById("hour-table").deleteRow(0);
+        }
+        function myCreateFunctionHol() {
+            var table = document.getElementById("holiday-table");
+            var row = table.insertRow(0);
+        }
+
+        function myDeleteFunctionHol() {
+            document.getElementById("holiday-table").deleteRow(0);
+        }
     </script>
 {% endblock javascripts %}

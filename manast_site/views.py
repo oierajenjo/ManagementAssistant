@@ -1,24 +1,26 @@
 import csv
-import json
+import io
+import os
 
-from django.contrib.auth import authenticate, login, logout
+from django.contrib import auth, messages
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
-from django.db.models import Q
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.template.context_processors import csrf
 
+from manast_database.models import Item, Category
 from manast_site.forms import *
 from manast_site.models import *
 from .functions import *
 
 
-# def index(request):
-#     if not request.user.is_authenticated:
-#         return render(request, "index.html")
-#
-#     return profile_view(request)
+def index(request):
+    if not request.user.is_authenticated:
+        return render(request, "registration/login_register.html")
+
+    return profile_view(request)
 
 
 def login_register(request):
@@ -27,15 +29,12 @@ def login_register(request):
         if form.is_valid():
             form.save()
             user = User.objects.last()
-            default = Group.objects.get(name="standard_user")
-            user.groups.add(default)
             user.save()
-            return HttpResponseRedirect('profile')
+            return HttpResponseRedirect('login')
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(username=username, password=password)
-
             if user is not None:
                 if user.is_active:
                     # faster than len()
@@ -43,7 +42,7 @@ def login_register(request):
                         profile = Profile(user=user)
                         profile.save()
                     login(request, user)
-                    return HttpResponseRedirect('profile')
+                    return HttpResponseRedirect('/')
     else:
         form = UserForm()
 
@@ -55,9 +54,9 @@ def login_register(request):
 
 
 @login_required(login_url='login')
-def profile_logout(request):
-    logout(request)
-    return HttpResponseRedirect('login')
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect("login")
 
 
 @login_required(login_url='login')
@@ -74,7 +73,6 @@ def profile_view(request):
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
-    form = HolidayForm()
     context = {
         "profile": profile,
         "shop": shop
@@ -111,15 +109,16 @@ def edit_shop(request, pk):
     shop = Shop.objects.get(pk=pk)
 
     if request.method == 'POST':
-        form = ShopPhotoForm(request.POST, request.FILES, instance={
+        form = ShopEditForm(request.POST, request.FILES, instance={
             'shop': shop,
-            'photo': Shop.objects.get(pk=pk),
+            'photo': shop,
+            'holiday': shop.holidays,
         })
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
     else:
-        form = ShopPhotoForm
+        form = ShopEditForm
 
     token = {}
     token.update(csrf(request))
@@ -148,6 +147,52 @@ def sales_table(request, pk):
     }
 
     return render(request, "shop/tables/sales_table.html", context)
+
+
+# Create your views here.
+def data_upload(request, pk):
+    template = "upload.html"
+    prompt = {
+        'order': 'Order of the CSV should be Día, Item, Price, Quantity, Cost, Categoria'
+    }
+
+    if request.method == 'GET':
+        return render(request, template, prompt)
+
+    csv_file = request.FILES['file']
+    if not csv_file.name.endswith('.csv'):
+        messages.error(request, 'Please upload a .csv file.')
+
+    file_name = os.path.splitext(os.path.basename('file'))[0]
+    week = file_name[-8:-6]
+    year = file_name[-5:-1]
+    # "01Ventas(semana05-2020)"
+
+    data_set = csv_file.read().decode('UTF-8')
+    io_string = io.StringIO(data_set)
+    next(io_string)
+    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+        _, created = Category.objects.update_or_create(
+            name=column[5]
+        )
+        _, created2 = Item.objects.update_or_create(
+            name=column[1],
+            category=column[5],
+            shop=Shop.objects.get(pk=pk)
+        )
+        _, created3 = Sale.objects.update_or_create(
+            date=get_day(column[0], week, year),
+            item=column[1],
+            price=column[2],
+            quantity=column[3],
+            # cost=column[4],
+            shop=Shop.objects.get(pk=pk)
+        )
+
+    context = {
+        # 'tables': Table.objects.all()
+    }
+    return render(request, template, context)
 
 
 @login_required(login_url='login')
@@ -203,7 +248,6 @@ def predictions_table(request, pk):
     }
 
     return render(request, "shop/tables/predictions_table.html", context)
-
 
 # @login_required(login_url='login')
 # def download_csv(request):

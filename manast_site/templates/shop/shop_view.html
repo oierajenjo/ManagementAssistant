@@ -30,7 +30,7 @@
                             <h3>{{ shop.name }}</h3>
                             <h2>{{ shop.direction }}</h2>
                             <h2>{{ shop.zip_code }}</h2>
-                            <a class="btn btn-primary nav-link" href="{% url  'edit_user' %}">
+                            <a class="btn btn-primary nav-link" href="{% url 'edit_shop' pk=shop.pk %}">
                                 {% trans "Edit Shop Info" %}
                                 </a>
                             <br/>

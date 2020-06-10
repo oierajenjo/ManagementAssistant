@@ -28,11 +28,11 @@
         <div class="menu_section">
             <h3>{% trans "General" %}</h3>
             <ul class="nav side-menu ">
-                <li><a href="{% url "profile_view" %}"><i class="fa fa-home"></i> {% trans "User" %} </a></li>
+                <li><a href="{% url "profile_view" %}"><i class="fa fa-user"></i> {% trans "User" %} </a></li>
             </ul>
         </div>
         <div class="menu_section">
-            <h3>{% trans "Shops" %}</h3>
+            <h3><i class="fa fa-home"></i>{% trans "Shops" %}</h3>
             <ul class="nav side-menu">
                 {% for shop in profile.shops.all %}
                     <li><a><h3>{{ shop.name }}<span class="fa fa-chevron-down"></span></h3></a>
