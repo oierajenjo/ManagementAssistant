@@ -171,7 +171,7 @@ def data_upload(request, pk):
     data_set = csv_file.read().decode('UTF-8')
     io_string = io.StringIO(data_set)
     next(io_string)
-    for column in csv.reader(io_string, delimiter=',', quotechar="|"):
+    for column in csv.reader(io_string, delimiter=';', quotechar="|"):
         _, created = Category.objects.update_or_create(
             name=column[5]
         )
