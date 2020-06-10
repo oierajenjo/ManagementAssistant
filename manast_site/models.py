@@ -1,5 +1,3 @@
-import calendar
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
@@ -96,8 +94,8 @@ class Shop(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, unique=True, verbose_name=_("user"), related_name='user',
                                 on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatars', blank=True, default="avatars/user.png",
-                               verbose_name=_("avatar"), storage=MediaFileSystemStorage())
+    avatar = models.ImageField(upload_to='avatars', blank=True, default="avatars/user.png", verbose_name=_("avatar"),
+                               storage=MediaFileSystemStorage())
 
     shops = models.ManyToManyField(Shop, blank=True, verbose_name=_("shops_user"))
 
