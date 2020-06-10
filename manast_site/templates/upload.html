@@ -12,16 +12,20 @@
 
 
 </body>
-{% if task_id %}
-    <script src="{% static 'celery_progress/celery_progress.js' %}"></script>
-    <script>
-
-        // vanilla JS version
-        document.addEventListener("DOMContentLoaded", function () {
-            var progressUrl = "{% url 'celery_progress:task_status' task_id %}";
-
-            CeleryProgressBar.initProgressBar(progressUrl);
-        });
-    </script>
+{% if messages %}
+    {% for message in messages %}
+        <div>
+            <strong>{{ message|safe }}</strong>
+        </div>
+    {% endfor %}
+{% else %}
+    {{ order }}
+    <form method="post" enctype="multipart/form-data">
+        {{ csrf_token }}
+        <label>Upload a file</label>
+        <input type="file" name="file">
+        <p>Only accepts CSV files</p>
+        <button type="submit">Upload</button>
+    </form>
 {% endif %}
 </html>
