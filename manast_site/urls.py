@@ -13,15 +13,15 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('profile', views.profile_view, name='profile_view'),
     path('edit_user', views.edit_user, name='edit_user'),
-    path('shop/<int:pk>/data_upload/', views.data_upload, name='data_upload'),
 
-    path('shop/<int:pk>/', views.shop_view, name='shop_view'),
+    path('shop/<int:pk>/', views.shop_view, name='shop'),
+    path('shop/<int:pk>/upload/', views.data_upload, name='data_upload'),
     path('shop/<int:pk>/edit_shop/', views.edit_shop, name='edit_shop'),
 
-    path('shop/<int:pk>/sales_table/', views.sales_table, name='sales_table'),
-    path('shop/<int:pk>/expenses_table/', views.expenses_table, name='expenses_table'),
-    path('shop/<int:pk>/stats_table/', views.stats_table, name='stats_table'),
-    path('shop/<int:pk>/predictions_table/', views.predictions_table, name='predictions_table'),
+    path('shop/<int:pk>/sales/', views.sales_table, name='sales'),
+    path('shop/<int:pk>/expenses/', views.expenses_table, name='expenses'),
+    path('shop/<int:pk>/stats/', views.stats_table, name='stats'),
+    path('shop/<int:pk>/predictions/', views.predictions_table, name='predictions'),
 
     # path('export', views.download_csv, name='download_csv'),
 

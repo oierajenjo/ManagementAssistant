@@ -70,14 +70,17 @@ class Expense(models.Model):
 
     # Get period of expense
     def period_total(self):
-        if self.periodicity == 1:  # Daily
-            return 1
-        elif self.periodicity == 2:  # Weekly
-            return self.week_workdays
-        elif self.periodicity == 3:  # Monthly
-            return calendar.monthrange(self.date.year, self.date.month)[1]
-        elif self.periodicity == 4:  # Annual
-            return (date(self.date.year, 1, 1) - date(self.date.year, 12, 31)).days
+        if self.repeat:
+            if self.periodicity == 1:  # Daily
+                return 1
+            elif self.periodicity == 2:  # Weekly
+                return self.week_workdays
+            elif self.periodicity == 3:  # Monthly
+                return calendar.monthrange(self.date.year, self.date.month)[1]
+            elif self.periodicity == 4:  # Annual
+                return (date(self.date.year, 1, 1) - date(self.date.year, 12, 31)).days
+        else:
+            return 0
 
     # Get total cost per day
     def total_cost_per_day(self):
