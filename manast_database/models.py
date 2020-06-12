@@ -5,6 +5,7 @@ from datetime import date
 from django.db import models
 from django.db.models import Model
 from django.utils.translation import ugettext_lazy as _
+
 from manast_site.models import Profile, Shop
 
 # CURRENCY = settings.CURRENCY

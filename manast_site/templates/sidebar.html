@@ -22,45 +22,46 @@
     <!-- /menu profile quick info -->
 
     <br/>
-<!-- sidebar menu -->
-  <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-    <div class="menu_section">
-        <ul class="nav side-menu ">
-            <li><a href="{% url "profile_view" %}"><i class="fa fa-user"></i> {% trans "User" %} </a></li>
-        </ul>
-        <h3>{% trans "General" %}</h3>
-        <ul class="nav side-menu">
-            {% for shop in profile.shops.all %}
-                <li><a><i class="fa fa-home"></i>{{ shop.name }}<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="{% url "shop" pk=shop.pk%}">{% trans "Shop Info" %}</a></li>
-                        <li><a href="{% url "sales" pk=shop.pk%}">{% trans "Sales" %}</a></li>
-                        <li><a href="{% url "expenses" pk=shop.pk%}">{% trans "Expenses" %}</a></li>
-                        <li><a href="{% url "stats" pk=shop.pk%}">{% trans "Stats" %}</a></li>
-                        <li><a href="{% url "predictions" pk=shop.pk%}">{% trans "Predictions" %}</a></li>
-                        <li><a href="{% url "data_upload" pk=shop.pk%}">{% trans "Upload Sales" %}</a></li>
-                    </ul>
-                </li>
-            {%  endfor %}
-        </ul>
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+            <ul class="nav side-menu ">
+                <li><a href="{% url "profile_view" %}"><i class="fa fa-user"></i> {% trans "User" %} </a></li>
+            </ul>
+            <h3>{% trans "General" %}</h3>
+            <ul class="nav side-menu">
+                {% for shop in profile.shops.all %}
+                    <li><a><i class="fa fa-home"></i>{{ shop.name }}<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{% url "shop" pk=shop.pk%}">{% trans "Shop Info" %}</a></li>
+                            <li><a href="{% url "sales" pk=shop.pk%}">{% trans "Sales" %} <i class="fa fa-euro"></i></a></li>
+                            <li><a href="{% url "expenses" pk=shop.pk%}">{% trans "Expenses" %} <i class="fa fa-cart-arrow-down"></i></a></li>
+                            <li><a href="{% url "stats" pk=shop.pk%}">{% trans "Stats" %} <i class="fa fa-area-chart"></i></a></li>
+                            <li><a href="{% url "predictions" pk=shop.pk%}">{% trans "Predictions" %} <i class="fa fa-line-chart"></i></a></li>
+                            <li><a href="{% url "data_upload" pk=shop.pk%}">{% trans "Upload Sales" %} <i class="fa fa-upload"></i></a></li>
+                        </ul>
+                    </li>
+                {%  endfor %}
+                <li><a href="{% url "new_shop" %}"><i class="fa fa-plus-circle"></i> {% trans "New Shop" %}</a></li>
+            </ul>
+        </div>
     </div>
-  </div>
-  <!-- /sidebar menu -->
+    <!-- /sidebar menu -->
 
-  <!-- /menu footer buttons -->
-  <div class="sidebar-footer hidden-small">
-    <a data-toggle="tooltip" data-placement="top" title="Settings">
-      <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-    </a>
-    <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-      <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-    </a>
-    <a data-toggle="tooltip" data-placement="top" title="Lock">
-      <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-    </a>
-    <a data-toggle="tooltip" data-placement="top" title="Logout" href="registration/login_register.html">
-      <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-    </a>
-  </div>
-  <!-- /menu footer buttons -->
+    <!-- /menu footer buttons -->
+    <div class="sidebar-footer hidden-small">
+        <a data-toggle="tooltip" data-placement="top" title="Settings">
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+        </a>
+        <a data-toggle="tooltip" data-placement="top" title="Logout" href={% url "logout" %}>
+            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+        </a>
+    </div>
+    <!-- /menu footer buttons -->
 </div>

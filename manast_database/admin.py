@@ -17,12 +17,14 @@ class ItemAdmin(admin.ModelAdmin):
 class ExpenseAdmin(admin.ModelAdmin):
     list_filter = ('item', 'shop', 'date')
     list_display = ('shop', 'date')
+    ordering = ('-date',)
     # search_fields = ['']
 
 
 class SalesAdmin(admin.ModelAdmin):
     list_filter = ('item', 'shop', 'date')
     list_display = ('shop', 'date')
+    ordering = ('-date',)
 
 
 # search_fields = ['']

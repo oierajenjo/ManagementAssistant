@@ -1,11 +1,9 @@
 import csv
 import io
-import os
 
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.context_processors import csrf
@@ -116,7 +114,7 @@ def edit_shop(request, pk):
         })
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/shop/' + str(shop.pk))
     else:
         form = ShopEditForm
 
@@ -131,6 +129,21 @@ def edit_shop(request, pk):
     }
 
     return render(request, 'shop/edit_shop.html', context)
+
+
+@login_required(login_url='login')
+def new_shop(request):
+    profile = Profile.objects.get(user=request.user)
+    shop = profile.shops.create(name="new")
+
+    return redirect(edit_shop, pk=shop.pk)
+
+
+@login_required(login_url='login')
+def delete_shop(request, pk):
+    shop = Shop.objects.get(pk=pk)
+    shop.delete()
+    return redirect(profile_view)
 
 
 @login_required(login_url='login')

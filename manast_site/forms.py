@@ -1,8 +1,8 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from betterforms.multiform import MultiModelForm
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from .models import *
-from django import forms
-from betterforms.multiform import MultiModelForm
 
 
 class UserForm(UserCreationForm):

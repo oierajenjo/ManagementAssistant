@@ -1,22 +1,23 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
 from manast_site import views
-from django.contrib.auth import views as auth_views
-
 
 urlpatterns = [
     path('', views.index, name='index'),
     # path('calendar', views.calendar, name='calendar'),
 
-    path('login', views.login_register, name='login'),
-    path('logout', views.logout, name='logout'),
-    path('profile', views.profile_view, name='profile_view'),
-    path('edit_user', views.edit_user, name='edit_user'),
+    path('login/', views.login_register, name='login'),
+    path('logout/', views.logout, name='logout'),
+    path('profile/', views.profile_view, name='profile_view'),
+    path('edit_user/', views.edit_user, name='edit_user'),
 
     path('shop/<int:pk>/', views.shop_view, name='shop'),
     path('shop/<int:pk>/upload/', views.data_upload, name='data_upload'),
     path('shop/<int:pk>/edit_shop/', views.edit_shop, name='edit_shop'),
+    path('shop/new_shop/', views.new_shop, name='new_shop'),
+    path('shop/<int:pk>/delete_shop/', views.delete_shop, name='delete_shop'),
 
     path('shop/<int:pk>/sales/', views.sales_table, name='sales'),
     path('shop/<int:pk>/expenses/', views.expenses_table, name='expenses'),
