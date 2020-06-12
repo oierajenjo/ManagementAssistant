@@ -21,7 +21,7 @@
     <div class="tab-content">
         <div id="login">
             <h1>{% trans "Welcome again!" %}</h1>
-{# LOGIN #}
+            {# LOGIN #}
             <form action="login" method="post">
                 {% csrf_token %}
                 <div class="field-wrap">
@@ -36,11 +36,11 @@
                     </label>
                     <input id="id_password" name="password" type="password" required autocomplete="off"/>
                 </div>
-                  <p><a href="{% url "password_reset" %}">{% trans "Have you forgotten your password?" %}</a></p>
+                <p><a href="{% url "password_reset" %}">{% trans "Have you forgotten your password?" %}</a></p>
                 <button type="submit" class="button button-block">{% trans "Login" %}</button>
             </form>
         </div>
-{# SIGNUP #}
+        {# SIGNUP #}
         <div id="signup">
             <h1>{% trans "Register" %}</h1>
             <form action="login" method="post">

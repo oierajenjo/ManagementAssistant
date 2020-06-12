@@ -12,7 +12,7 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                    <br/>
+                        <br/>
                         <form action="{% url "edit_user" %}" enctype="multipart/form-data" method="post" class="form-horizontal form-label-left">{% csrf_token %}
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_user-first_name" >{% trans 'Name' %}
@@ -24,7 +24,7 @@
                             <br>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12"
-                                for="id_user-last_name">{% trans 'Surname' %}
+                                       for="id_user-last_name">{% trans 'Surname' %}
                                 </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
                                     <input id="id_user-last_name" type="text" name="user-last_name" maxlength="100" required="required" data-validate-length-range="2,15" class="form-control col-md-7 col-xs-12" value="{{ profile.user.last_name }}"/>
@@ -78,7 +78,7 @@
                             <div class="form-group" align="left">
                                 <div >
                                     <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-save"></i>
-                                    &nbsp; {% trans 'Save' %}</button>
+                                        &nbsp; {% trans 'Save' %}</button>
                                 </div>
                             </div>
                         </form>
