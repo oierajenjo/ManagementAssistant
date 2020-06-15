@@ -26,15 +26,19 @@
                                     </a>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <h2><strong>{% trans "Username" %}: </strong>{{ profile.user }}</h2>
+                            <h2><strong>{% trans "Name & last name" %}: </strong>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
+                            <h2><strong>{% trans "Email" %}: </strong>{{ profile.user.email }}</h2>
+                            <h2><strong>{% trans "Shops list" %}: </strong></h2>
+                            {% for shop in profile.shops.all %}
+                                <h2>{{ shop.name }}</h2>
+                            {% endfor %}
+                            <br/>
                             <a class="btn btn-primary nav-link" href="{% url  'edit_user' %}">
                                 {% trans "Edit Profile" %}
                             </a>
-                            <br/>
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <h3>{{ profile.user }}</h3>
-                            <h2>{{ profile.user.first_name }} {{ profile.user.last_name }}</h2>
                         </div>
                     </div>
                 </div>

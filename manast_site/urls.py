@@ -16,6 +16,7 @@ urlpatterns = [
     path('shop/<int:pk>/', views.shop_view, name='shop'),
     path('shop/<int:pk>/upload/', views.data_upload, name='data_upload'),
     path('shop/<int:pk>/edit_shop/', views.edit_shop, name='edit_shop'),
+    path('shop/<int:pk>/holiday/', views.holiday, name='holiday'),
     path('shop/new_shop/', views.new_shop, name='new_shop'),
     path('shop/<int:pk>/delete_shop/', views.delete_shop, name='delete_shop'),
 

@@ -62,7 +62,7 @@
                             <br>
 
                             <br>
-                            <div class="item form-group">
+                            {% comment %}<div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-opening_times">{% trans 'Opening Times' %}
                                 </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
@@ -92,11 +92,11 @@
                                     <button onclick="myCreateFunctionHour()">Create row</button>
                                     <button onclick="myDeleteFunctionHour()">Delete row</button>
                                 </div>
-                            </div>
+                            </div>{% endcomment %}
                             <br>
 
                             <br>
-                            <div class="item form-group">
+                            {% comment %}<div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-holidays">{% trans 'Holidays' %}
                                 </label>
                                 <div class="col-md-5 col-sm-6 col-xs-12">
@@ -120,7 +120,7 @@
                                     <button onclick="myCreateFunctionHol()">Create row</button>
                                     <button onclick="myDeleteFunctionHol()">Delete row</button>
                                 </div>
-                            </div>
+                            </div>{% endcomment %}
                             <br>
 
                             <div class="form-group" align="left">
@@ -139,7 +139,7 @@
 {% block javascripts %}
     {{ block.super }}
     <!-- Datatables -->
-    <script>
+{% comment %}    <script>
         function myCreateFunctionHour() {
             var table = document.getElementById("hour-table");
             var row = table.insertRow(0);
@@ -149,12 +149,14 @@
             document.getElementById("hour-table").deleteRow(0);
         }
         function myCreateFunctionHol() {
+            {{ shop.holidays.create }}
             var table = document.getElementById("holiday-table");
             var row = table.insertRow(0);
+
         }
 
         function myDeleteFunctionHol() {
             document.getElementById("holiday-table").deleteRow(0);
         }
-    </script>
+    </script>{% endcomment %}
 {% endblock javascripts %}

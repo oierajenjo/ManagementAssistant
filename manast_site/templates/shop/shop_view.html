@@ -26,12 +26,30 @@
                                     </a>
                                 </div>
                             </div>
-                            <h3>{{ shop.name }}</h3>
-                            <h2>{{ shop.direction }}</h2>
-                            <h2>{{ shop.zip_code }}</h2>
+
+                            <br/>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <h2><strong>{% trans "Shop Name" %}: </strong>{{ shop.name }}</h2>
+                            <h2><strong>{% trans "Direction" %}: </strong>{{ shop.direction }}</h2>
+                            <h2><strong>{% trans "Zip Code" %}: </strong>{{ shop.zip_code }}</h2>
+                            <h2><strong>{% trans "Phone number" %}: </strong>{{ shop.phone }}</h2>
+                            <h2><strong>{% trans "Opening Hours" %}: </strong></h2>
+                            {% for op in shop.opening_times.all %}
+                                <h2>{{ op }}</h2>
+                            {% endfor %}
+                            <h2><strong>{% trans "Holidays" %}: </strong></h2>
+                            {% for ho in shop.holidays.all %}
+                                <h2>{{ ho.name }} ({{ ho.date }})</h2>
+                            {% endfor %}
+
+                            <br/>
                             <a class="btn btn-primary nav-link" href="{% url 'edit_shop' pk=shop.pk %}">
                                 {% trans "Edit Shop Info" %}
                             </a>
+{% comment %}                            <a class="btn btn-primary nav-link" href="{% url 'holiday' pk=shop.pk %}">
+                                {% trans "Add Holidays" %}
+                            </a>{% endcomment %}
                             <a class="btn btn-danger" data-toggle="modal" data-target=".bd-example-modal-sm" id="btn-confirm">Delete Shop <i class="fa fa-trash"></i></a>
                             <!-- Modal -->
                             <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
@@ -49,12 +67,6 @@
                                 </div>
                             </div>
                             <!-- End Modal -->
-                            <br/>
-                        </div>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <a class="btn btn-primary nav-link" href="{% url 'data_upload' pk=shop.pk %}">
-                                {% trans "Upload Sales" %}
-                            </a>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,83 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{% trans 'Modify shop' %}
+                            <small></small>
+                        </h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form action="{% url "edit_shop" pk=shop.pk %}" enctype="multipart/form-data" method="post" class="form-horizontal form-label-left">{% csrf_token %}
+                            <br>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id_shop-holidays">{% trans 'Holidays' %}
+                                </label>
+                                <div class="col-md-5 col-sm-6 col-xs-12">
+                                    <table id="datatable-buttons holiday-table" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>{% trans "Name" %}</th>
+                                            <th>{% trans "Date" %}</th>
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                        <tr>
+                                            {% for hs in holidays %}
+                                                <td contenteditable='true' type="text" data-id="{{hs.name}}" data-old_value='{{hs.name}}' >{{hs.name}}</td>
+                                                <td contenteditable='true' type="date" data-id="date-{{hs.name}}" data-old_value='{{hs.date}}' >{{hs.date}}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <button onclick="myCreateFunctionHol()">Create row</button>
+                                    <button onclick="myDeleteFunctionHol()">Delete row</button>
+                                </div>
+                            </div>
+                            <br>
+
+                            <div class="form-group" align="left">
+                                <div >
+                                    <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-save"></i> {% trans 'Save' %}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ block.super }}
+    <!-- Datatables -->
+    <script>
+{% comment %}        function myCreateFunctionHour() {
+            var table = document.getElementById("hour-table");
+            var row = table.insertRow(0);
+        }
+
+        function myDeleteFunctionHour() {
+            document.getElementById("hour-table").deleteRow(0);
+        }{% endcomment %}
+        function myCreateFunctionHol() {
+            {{ shop.holidays.create }}
+            var table = document.getElementById("holiday-table");
+            var row = table.insertRow(0);
+
+        }
+
+        function myDeleteFunctionHol() {
+            document.getElementById("holiday-table").deleteRow(0);
+        }
+    </script>
+{% endblock javascripts %}

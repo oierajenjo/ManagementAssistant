@@ -5,7 +5,7 @@ from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 
 from manast_database.models import Item, Category
@@ -71,9 +71,11 @@ def profile_view(request):
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
+    list_hours = Shop.get_opening_days(shop)
     context = {
         "profile": profile,
-        "shop": shop
+        "shop": shop,
+        "hours": list_hours
     }
     return render(request, "shop/shop_view.html", context)
 
@@ -99,6 +101,32 @@ def edit_user(request):
 
     return render(request, 'account/edit_user.html',
                   {'user': request.user, 'profile': profile})
+
+
+def holiday(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = HolidayForm(request.POST, request.FILES, instance={
+            'holidays': shop.holidays,
+        })
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/shop/' + str(shop.pk))
+    else:
+        form = HolidayForm
+
+    token = {}
+    token.update(csrf(request))
+    token['form'] = form
+
+    context = {
+        "profile": profile,
+        "holidays": shop.holidays,
+    }
+
+    return render(request, 'shop/holidays.html', context)
 
 
 @login_required(login_url='login')
@@ -170,7 +198,8 @@ def data_upload(request, pk):
     context = {
         "profile": profile,
         "shop": shop,
-        'order': 'Order of the CSV should be Day, Item, Price, Quantity, Cost, Category',
+        'order': 'Title of the file "01Ventas(semana05-2020).csv" Order of the CSV should be Day, Item, Price, '
+                 'Quantity, Cost, Category',
     }
 
     if request.method == 'GET':

@@ -56,10 +56,10 @@ class PhotoForm(forms.ModelForm):
         return avatar
 
 
-# class HolidayForm(forms.ModelForm):
-#     class Meta:
-#         model = Holiday
-#         fields = ('name', 'date',)
+class HolidayForm(forms.ModelForm):
+    class Meta:
+        model = Holiday
+        fields = ('name', 'date',)
 
 
 class ShopEditForm(MultiModelForm):

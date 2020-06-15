@@ -80,10 +80,9 @@ class Shop(models.Model):
 
     def get_opening_days(self):
         list_days = list(range(0, 7))
-        for op in self.opening_times.all:
+        for op in self.opening_times.all():
             if op.from_hour is None and op.to_hour is None:
                 list_days.remove(op.op_weekday)
-
         return list_days
 
     class Meta:
