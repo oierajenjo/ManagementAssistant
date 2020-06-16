@@ -1,0 +1,40 @@
+﻿Day;Item;Price;Quantity;Cost;Category
+L;Primitiva;381,00;381;0;Lotery
+L;Joker Prim.;23,00;23;0;Lotery
+L;Bono Loto;241,50;483;0;Lotery
+L;Gordo;79,50;53;0;Lotery
+L;Quiniela;1,50;2;0;Lotery
+L;Euromillones;420,00;168;0;Lotery
+M;Primitiva;247,00;247;0;Lotery
+M;Joker Prim.;8,00;8;0;Lotery
+M;Bono Loto;79,00;158;0;Lotery
+M;Gordo;15,00;10;0;Lotery
+M;Quiniela;7,50;10;0;Lotery
+M;Elige 8;0,50;1;0;Lotery
+M;Euromillones;257,50;103;0;Lotery
+X;Primitiva;187,00;187;0;Lotery
+X;Joker Prim.;10,00;10;0;Lotery
+X;Bono Loto;49,00;98;0;Lotery
+X;Quiniela;37,50;50;0;Lotery
+X;Euromillones;92,50;37;0;Lotery
+J;Primitiva;232,00;232;0;Lotery
+J;Joker Prim.;11,00;11;0;Lotery
+J;Bono Loto;42,50;85;0;Lotery
+J;Gordo;3,00;2;0;Lotery
+J;Quiniela;16,50;22;0;Lotery
+J;Euromillones;52,50;21;0;Lotery
+V;Primitiva;64,00;64;0;Lotery
+V;Bono Loto;49,50;99;0;Lotery
+V;Gordo;7,50;5;0;Lotery
+V;Quiniela;22,50;30;0;Lotery
+V;Euromillones;102,50;41;0;Lotery
+S;Primitiva;106,00;106;0;Lotery
+S;Joker Prim.;3,00;3;0;Lotery
+S;Bono Loto;35,00;70;0;Lotery
+S;Gordo;9,00;6;0;Lotery
+S;Euromillones;55,00;22;0;Lotery
+D;Primitiva;194,00;194;0;Lotery
+D;Joker Prim.;13,00;13;0;Lotery
+D;Bono Loto;143,50;287;0;Lotery
+D;Gordo;150,00;100;0;Lotery
+D;Euromillones;150,00;60;0;Lotery
