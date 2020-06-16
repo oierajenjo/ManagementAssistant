@@ -175,22 +175,6 @@ def delete_shop(request, pk):
 
 
 @login_required(login_url='login')
-def sales_table(request, pk):
-    profile = Profile.objects.get(user=request.user)
-    shop = Shop.objects.get(pk=pk)
-
-    sales = get_all_sales(shop)
-
-    context = {
-        "profile": profile,
-        "shop": shop,
-        "sales": sales,
-    }
-
-    return render(request, "shop/tables/sales_table.html", context)
-
-
-@login_required(login_url='login')
 def data_upload(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -239,18 +223,60 @@ def data_upload(request, pk):
 
 
 @login_required(login_url='login')
+def sales_table(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+
+    sales = get_all_sales(shop)
+
+    ben_c = benefits_category(sales)
+    ben_c_keys = []
+    for bk in ben_c.keys():
+        ben_c_keys.append(bk)
+
+    ben_i = benefits_item(sales)
+    ben_i_keys = []
+    for bk in ben_i.keys():
+        ben_i_keys.append(bk)
+
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "sales": sales,
+        "benefitsCategory": ben_c,
+        "benefitsCategory_keys": ben_c_keys,
+        "benefitsItems": ben_i,
+        "benefitsItems_keys": ben_i_keys,
+    }
+    return render(request, "shop/tables/sales_table.html", context)
+
+
+@login_required(login_url='login')
 def expenses_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
 
     expenses = get_all_expenses(shop)
 
+    exp_c = expenses_category(expenses)
+    exp_c_keys = []
+    for bk in exp_c.keys():
+        exp_c_keys.append(bk)
+
+    exp_i = expenses_item(expenses)
+    exp_i_keys = []
+    for bk in exp_i.keys():
+        exp_i_keys.append(bk)
+
     context = {
         "profile": profile,
         "shop": shop,
         "expenses": expenses,
+        "expensesCategory": exp_c,
+        "expensesCategory_keys": exp_c_keys,
+        "expensesItems": exp_i,
+        "expensesItems_keys": exp_i_keys,
     }
-
     return render(request, "shop/tables/expenses_table.html", context)
 
 
@@ -262,11 +288,25 @@ def stats_table(request, pk):
     expenses = get_all_expenses(shop)
     sales = get_all_sales(shop)
 
+    ben_date = benefits_date(sales)
+    # ben_date = {ben_date: int(v) for k, v in ben_date.iteritems()}
+    ben_date_keys = []
+    for bk in ben_date.keys():
+        ben_date_keys.append(int(bk))
+
+    week = range(1, 53)
+    week_list = []
+    for wl in week:
+        week_list.append(wl)
+
     context = {
         "profile": profile,
         "shop": shop,
         "sales": sales,
         "expenses": expenses,
+        "benefits_date": ben_date,
+        "benefits_date_key": ben_date_keys,
+        "week_list": week_list,
     }
 
     return render(request, "shop/tables/stats_table.html", context)
