@@ -1,5 +1,20 @@
 import collections
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+from dateutil import rrule
+from statsmodels.tsa.arima_model import ARIMA, ARIMAResults
+from sklearn.metrics import mean_squared_error
+
+import numpy as np
+import pandas as pd
+from matplotlib import pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.tsa.seasonal import seasonal_decompose
+from statsmodels.tsa.arima_model import ARIMA
+from pandas.plotting import register_matplotlib_converters
+
+register_matplotlib_converters()
 
 from django.template.defaulttags import register
 
@@ -20,7 +35,7 @@ def get_day(weekday, week, year):
 
 # SALES
 def get_all_sales(shop):
-    sales = Sale.objects.filter(shop=shop)
+    sales = Sale.objects.filter(shop=shop).order_by('date')
     return sales
 
 
@@ -62,7 +77,7 @@ def benefits_item(sales):
     return values
 
 
-def benefits_date(sales):
+def benefits_week(sales):
     values = {}
 
     for sale in sales:
@@ -82,14 +97,12 @@ def benefits_date(sales):
         else:
             v = {str(day[0:4]): {str(day[5:7]): float(sale.benefits())}}
             values.update(v)
-
     # print(values)
     week = range(1, 53)
     week_list = []
     for wl in week:
         week_list.append("%02d" % wl)
-    print(week_list)
-    # print(values.keys())
+    # print(week_list)
     final = {}
 
     for key in values.keys():
@@ -102,11 +115,71 @@ def benefits_date(sales):
                 final[key].append(0)
             if int(wl) >= datetime.today().isocalendar()[1] - 1 and int(key) == datetime.today().year:
                 break
+    # print(final)
+    context = {
+        "final": final,
+        "week_list": week_list
+    }
+    return context
+
+
+def benefits_per_day(sales):
+    values = {}
+    dates = {}
+
+    for sale in sales:
+        day = sale.date.strftime("%d-%m-%Y")
+        y = str(day[-4:])
+        d = str(day[:-5])
+
+        if y in values.keys():  # Year
+            if d in values[y].keys():  # Day in Year
+                c = values[y].get(d)
+                v = {d: float(sale.benefits()) + c}
+                values[y].update(v)
+            else:
+                v = {d: float(sale.benefits())}
+                values[y].update(v)
+                dates[y].append(d)
+        else:
+            v = {y: {d: float(sale.benefits())}}
+            values.update(v)
+            dt = {y: [d]}
+            dates.update(dt)
+
+    # print(values)
+    # print(dates)
+
+    sdate = date(2020, 1, 1)  # start date
+    edate = date(2020, 12, 31)  # end date
+
+    delta = edate - sdate  # as timedelta
+    days = []
+    for i in range(delta.days + 1):
+        day = sdate + timedelta(days=i)
+        days.append(day.strftime("%d-%m"))
+    final = {}
+    # print(days)
+
+    for key in values.keys():
+        v = {key: []}
+        final.update(v)
+        for d in days:
+            if d in dates[key]:
+                final[key].append(values[key][d])
+            elif datetime.strptime(d + "-2020", "%d-%m-%Y") < datetime.strptime(str(dates[key][0]) + "-2020", "%d-%m-%Y"):
+                final[key].append(0)
+
         # print(len(final[key]))
-    print(final)
-    sort_final = collections.OrderedDict(sorted(final.items(), key=lambda x: x[1]))
-    print(sort_final)
-    return sort_final
+
+    # print(final)
+    # print(dates)
+
+    context = {
+        "final": final,
+        "days": days
+    }
+    return context
 
 
 # EXPENSES
@@ -156,3 +229,97 @@ def expenses_item(sales):
 @register.filter
 def get_elements(dictionary, key):
     return dictionary.get(key)
+
+# def get_stationarity(timeseries):
+#     # rolling statistics
+#     rolling_mean = timeseries.rolling(window=12).mean()
+#     rolling_std = timeseries.rolling(window=12).std()
+#
+#     # rolling statistics plot
+#     original = plt.plot(timeseries, color='blue', label='Original')
+#     mean = plt.plot(rolling_mean, color='red', label='Rolling Mean')
+#     std = plt.plot(rolling_std, color='black', label='Rolling Std')
+#     plt.legend(loc='best')
+#     plt.title('Rolling Mean & Standard Deviation')
+#     plt.show(block=False)
+#
+#     # Dickey–Fuller test:
+#     result = adfuller(timeseries['Sales'])
+#     print('ADF Statistic: {}'.format(result[0]))
+#     print('p-value: {}'.format(result[1]))
+#     print('Critical Values:')
+#     for key, value in result[4].items():
+#         print('\t{}: {}'.format(key, value))
+
+
+# PREDICTIONS
+# def arima_prediction(sales):
+#
+#     ben = []
+#     dates = []
+#     for sale in sales:
+#         day = str(sale.date.strftime("%Y-%m-%d"))
+#         if day not in dates:
+#             ben.append(float(sale.benefits()))
+#             dates.append(day)
+#         else:
+#             v = ben[dates.index(day)]
+#             ben[dates.index(day)] = v + float(sale.benefits())
+#
+#     plt.xlabel('Date')
+#     plt.ylabel('Number of air passengers')
+#     plt.plot([dates, ben])
+#     plt.show()
+#
+#     # # print(h)
+#     # # print(len(h))
+#     # # print(len(dates))
+#     # # print(dates)
+#     # size = int(len(h) * 0.66)
+#     # print(size)
+#     # # size = int(len(h))
+#     # train, test = h[0:size], h[size:len(h)]
+#     # print(train)
+#     # print(test)
+#     # history = [x for x in train]
+#     # print(history)
+#     # predictions = list()
+#     # for t in range(len(test)):
+#     #     model = ARIMAResults
+#     #     model = ARIMA(history, order=(5, 1, 0))
+#     #     model_fit = model.fit(disp=0)
+#     #     output = model_fit.forecast(steps=1, exog=None, alpha=0.05)
+#     #     yhat = output[0]
+#     #     predictions.append(yhat)
+#     #     obs = test[t]
+#     #     history.append(obs)
+#     #     print('predicted=%f, expected=%f' % (yhat, obs))
+#     # error = mean_squared_error(test, predictions)
+#     # print('Test MSE: %.3f' % error)
+#     # # plot
+#     # print(len(test))
+#     # print(len(predictions))
+#     # print(len(dates))
+#     # ax = plt.gca()
+#     # formatter = mdates.DateFormatter("%Y-%m-%d")
+#     # ax.xaxis.set_major_formatter(formatter)
+#     # locator = mdates.DayLocator()
+#     # ax.xaxis.set_major_locator(locator)
+#     # plt.plot(dates, test, label="Results")
+#     # plt.plot(dates, predictions, label="Predictions")
+#     #
+#     # plt.legend()
+#     # plt.show()
+#     #
+#     # # pyplot.plot(test)
+#     # # pyplot.plot(predictions, color='red')
+#     # # pyplot.xticks([test, predictions], dates)
+#     # # pyplot.show()
+#     # # pyplot.savefig("plot.png")
+#     context = {
+#         # "predictions": predictions,
+#         # "error": error,
+#         # "history": history,
+#         "dates": dates
+#     }
+#     return context

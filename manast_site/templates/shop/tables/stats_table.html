@@ -15,7 +15,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Expenses per Item</h2>
+                        <h2>{% trans "Benefits per week" %}</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li>
                                 <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -27,7 +27,28 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id="container" style="height:350px;"></div>
+                        <div id="container_week" style="height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{% trans "Benefits per day" %}</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            {% comment %}                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>{% endcomment %}
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div id="container_day" style="height:350px;"></div>
                     </div>
                 </div>
             </div>
@@ -45,7 +66,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
     <script type="text/javascript">
-        var dom = document.getElementById("container");
+        var dom = document.getElementById("container_week");
         var myChart = echarts.init(dom);
         var app = {};
         option = null;
@@ -57,7 +78,7 @@
                 trigger: 'axis'
             },
             legend: {
-                data: [{% for bdk in benefits_date_key %}
+                data: [{% for bdk in benefits_per_week_keys %}
                     '{{ bdk }}',
                 {% endfor %}]
             },
@@ -75,18 +96,68 @@
             xAxis: {
                 type: 'category',
                 boundaryGap: false,
-                data:   {{ week_list }}
+                data:   {{ week_list|safe }}
             },
             yAxis: {
                 type: 'value'
             },
             series: [
-                {% for bd in benefits_date %}
+                {% for bd in benefits_per_week %}
                     {
                         name: '{{bd}}',
                         type: 'line',
                         stack: 'stack',
-                        data: {{ benefits_date|get_elements:bd }}
+                        data: {{ benefits_per_week|get_elements:bd }}
+                    },{% endfor %}
+            ]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
+    <script type="text/javascript">
+        var dom = document.getElementById("container_day");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            {% comment %}            title: {
+                            text: '折线图堆叠'
+                        },{% endcomment %}
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [{% for bdk in benefits_per_day_keys %}
+                    '{{ bdk }}',
+                {% endfor %}]
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data:   {{ days_list|safe }}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {% for bd in benefits_per_day %}
+                    {
+                        name: '{{bd}}',
+                        type: 'line',
+                        stack: 'stack',
+                        data: {{ benefits_per_day|get_elements:bd }}
                     },{% endfor %}
             ]
         };

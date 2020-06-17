@@ -1,5 +1,6 @@
 import csv
 import io
+import json
 
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login
@@ -285,28 +286,35 @@ def stats_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
 
-    expenses = get_all_expenses(shop)
+    # expenses = get_all_expenses(shop)
     sales = get_all_sales(shop)
 
-    ben_date = benefits_date(sales)
-    # ben_date = {ben_date: int(v) for k, v in ben_date.iteritems()}
-    ben_date_keys = []
-    for bk in ben_date.keys():
-        ben_date_keys.append(int(bk))
+    ben_per_week = benefits_week(sales)
+    ben_per_week_keys = []
+    for bk in ben_per_week["final"].keys():
+        ben_per_week_keys.append(int(bk))
 
-    week = range(1, 53)
-    week_list = []
-    for wl in week:
-        week_list.append(wl)
+    ben_per_day = benefits_per_day(sales)
+    ben_per_day_keys = []
+    for bk in ben_per_day["final"].keys():
+        ben_per_day_keys.append(int(bk))
+
+    # week = range(1, 53)
+    # week_list = []
+    # for wl in week:
+    #     week_list.append(wl)
 
     context = {
         "profile": profile,
         "shop": shop,
         "sales": sales,
-        "expenses": expenses,
-        "benefits_date": ben_date,
-        "benefits_date_key": ben_date_keys,
-        "week_list": week_list,
+        # "expenses": expenses,
+        "benefits_per_week": ben_per_week["final"],
+        "benefits_per_week_keys": ben_per_week_keys,
+        "week_list": ben_per_week["week_list"],
+        "benefits_per_day": ben_per_day["final"],
+        "benefits_per_day_keys": ben_per_day_keys,
+        "days_list": ben_per_day["days"]
     }
 
     return render(request, "shop/tables/stats_table.html", context)
@@ -320,14 +328,17 @@ def predictions_table(request, pk):
     expenses = get_all_expenses(shop)
     sales = get_all_sales(shop)
 
-    predictions = None
+    # arima = arima_prediction(sales)
 
     context = {
         "profile": profile,
         "shop": shop,
         "sales": sales,
         "expenses": expenses,
-        "predictions": predictions
+        # "predictions": arima["predictions"],
+        # "error": arima["error"],
+        # "dates": arima["dates"]
+        # "history": arima["history"],
     }
 
     return render(request, "shop/tables/predictions_table.html", context)

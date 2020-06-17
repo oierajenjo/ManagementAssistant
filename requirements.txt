@@ -4,3 +4,8 @@ requests
 pillow
 Unidecode
 urllib3
+pandas
+matplotlib
+statsmodels
+sklearn
+python-gettext
