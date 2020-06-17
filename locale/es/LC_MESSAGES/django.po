@@ -1,0 +1,602 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-17 04:24+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\ManagementAssistant\urls.py:26
+msgid "admin/"
+msgstr ""
+
+#: .\manast_database\models.py:14
+msgid "Daily"
+msgstr ""
+
+#: .\manast_database\models.py:15
+msgid "Weekly"
+msgstr ""
+
+#: .\manast_database\models.py:16
+msgid "Monthly "
+msgstr ""
+
+#: .\manast_database\models.py:17
+msgid "Annual"
+msgstr ""
+
+#: .\manast_database\models.py:22
+msgid "name_category"
+msgstr ""
+
+#: .\manast_database\models.py:28
+#: .\manast_site\templates\shop\tables\expenses_table.html:50
+#: .\manast_site\templates\shop\tables\sales_table.html:48
+msgid "Category"
+msgstr ""
+
+#: .\manast_database\models.py:29
+msgid "Categories"
+msgstr ""
+
+#: .\manast_database\models.py:33
+msgid "name_item"
+msgstr ""
+
+#: .\manast_database\models.py:34
+msgid "category_item"
+msgstr ""
+
+#: .\manast_database\models.py:43
+#: .\manast_site\templates\shop\tables\expenses_table.html:49
+#: .\manast_site\templates\shop\tables\sales_table.html:47
+msgid "Item"
+msgstr ""
+
+#: .\manast_database\models.py:44
+msgid "Items"
+msgstr ""
+
+#: .\manast_database\models.py:48
+msgid "item_exp"
+msgstr ""
+
+#: .\manast_database\models.py:49
+msgid "quantity_expense"
+msgstr ""
+
+#: .\manast_database\models.py:50
+msgid "cost_expense"
+msgstr ""
+
+#: .\manast_database\models.py:51
+msgid "date_exp"
+msgstr ""
+
+#: .\manast_database\models.py:54
+msgid "repeat_expense"
+msgstr ""
+
+#: .\manast_database\models.py:95
+msgid "Expense"
+msgstr ""
+
+#: .\manast_database\models.py:96
+#: .\manast_site\templates\shop\tables\expenses_table.html:5
+#: .\manast_site\templates\shop\tables\expenses_table.html:21
+#: .\manast_site\templates\sidebar.html:38
+msgid "Expenses"
+msgstr ""
+
+#: .\manast_database\models.py:100
+msgid "item_sale"
+msgstr ""
+
+#: .\manast_database\models.py:101
+msgid "quantity_sale"
+msgstr ""
+
+#: .\manast_database\models.py:102
+msgid "price_sale"
+msgstr ""
+
+#: .\manast_database\models.py:104
+msgid "cost_sale"
+msgstr ""
+
+#: .\manast_database\models.py:105
+msgid "date_sale"
+msgstr ""
+
+#: .\manast_database\models.py:120
+msgid "Sale"
+msgstr ""
+
+#: .\manast_database\models.py:121
+#: .\manast_site\templates\shop\tables\sales_table.html:5
+#: .\manast_site\templates\shop\tables\sales_table.html:21
+#: .\manast_site\templates\sidebar.html:37
+msgid "Sales"
+msgstr ""
+
+#: .\manast_site\models.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\manast_site\models.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\manast_site\models.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\manast_site\models.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\manast_site\models.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\manast_site\models.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\manast_site\models.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\manast_site\models.py:31
+msgid "weekday"
+msgstr ""
+
+#: .\manast_site\models.py:54
+msgid "holiday_name"
+msgstr ""
+
+#: .\manast_site\models.py:55
+msgid "holiday_date"
+msgstr ""
+
+#: .\manast_site\models.py:61
+msgid "Holiday"
+msgstr ""
+
+#: .\manast_site\models.py:62 .\manast_site\templates\shop\holidays.html:21
+#: .\manast_site\templates\shop\shop_view.html:41
+msgid "Holidays"
+msgstr ""
+
+#: .\manast_site\models.py:66
+msgid "name_shop"
+msgstr ""
+
+#: .\manast_site\models.py:67
+msgid "photo"
+msgstr ""
+
+#: .\manast_site\models.py:70
+msgid "direction_shop"
+msgstr ""
+
+#: .\manast_site\models.py:71
+msgid "zip_code_shop"
+msgstr ""
+
+#: .\manast_site\models.py:72
+msgid "phone_shop"
+msgstr ""
+
+#: .\manast_site\models.py:74
+msgid "opening_hours_shop"
+msgstr ""
+
+#: .\manast_site\models.py:76
+msgid "holidays_shop"
+msgstr ""
+
+#: .\manast_site\models.py:89
+msgid "Shop"
+msgstr ""
+
+#: .\manast_site\models.py:90
+msgid "Shops"
+msgstr ""
+
+#: .\manast_site\models.py:94
+#: .\manast_site\templates\registration\login_register.html:28
+msgid "user"
+msgstr ""
+
+#: .\manast_site\models.py:96
+msgid "avatar"
+msgstr ""
+
+#: .\manast_site\models.py:99
+msgid "shops_user"
+msgstr ""
+
+#: .\manast_site\models.py:108 .\manast_site\templates\top_navigation.html:35
+msgid "Profile"
+msgstr ""
+
+#: .\manast_site\models.py:109
+msgid "Profiles"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:9
+msgid "Modify user"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:18
+#: .\manast_site\templates\registration\login_register.html:51
+#: .\manast_site\templates\shop\edit_shop.html:21
+#: .\manast_site\templates\shop\holidays.html:27
+msgid "Name"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:27
+#: .\manast_site\templates\registration\login_register.html:56
+msgid "Surname"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:51
+#: .\manast_site\templates\account\edit_user.html:60
+#: .\manast_site\templates\registration\login_register.html:34
+#: .\manast_site\templates\registration\login_register.html:75
+#: .\manast_site\templates\registration\password_reset_confirm.html:26
+msgid "Password"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:55
+msgid "Repeat password"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:64
+#: .\manast_site\templates\registration\login_register.html:82
+#: .\manast_site\templates\registration\password_reset_confirm.html:34
+msgid "Repeat Password"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:70
+msgid "Avatar"
+msgstr ""
+
+#: .\manast_site\templates\account\edit_user.html:81
+#: .\manast_site\templates\registration\password_reset_confirm.html:40
+#: .\manast_site\templates\shop\edit_shop.html:130
+#: .\manast_site\templates\shop\holidays.html:49
+msgid "Save"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:25
+msgid "Edit profile"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:31
+msgid "Username"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:32
+msgid "Name & last name"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:33
+msgid "Email"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:34
+msgid "Shops list"
+msgstr ""
+
+#: .\manast_site\templates\account\profile_view.html:40
+#: .\manast_site\templates\top_navigation.html:38
+msgid "Edit Profile"
+msgstr ""
+
+#: .\manast_site\templates\base_site.html:15
+#: .\manast_site\templates\sidebar.html:5
+msgid "ManagementAssistant"
+msgstr ""
+
+#: .\manast_site\templates\fixed_footer.html:4
+#: .\manast_site\templates\fixed_footer.html:19
+msgid "Fixed Footer"
+msgstr ""
+
+#: .\manast_site\templates\fixed_footer.html:19
+msgid "Just add class"
+msgstr ""
+
+#: .\manast_site\templates\fixed_footer.html:19
+msgid "footer_fixed"
+msgstr ""
+
+#: .\manast_site\templates\footer.html:4
+msgid "Chipmunk - Based on"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:8
+#: .\manast_site\templates\registration\login_register.html:19
+#: .\manast_site\templates\registration\login_register.html:40
+msgid "Login"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:18
+#: .\manast_site\templates\registration\login_register.html:45
+msgid "Register"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:23
+msgid "Welcome again!"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:39
+msgid "Have you forgotten your password?"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:63
+#: .\manast_site\templates\sidebar.html:29
+msgid "User"
+msgstr ""
+
+#: .\manast_site\templates\registration\login_register.html:88
+msgid "Create"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_complete.html:5
+#: .\manast_site\templates\registration\password_reset_confirm.html:7
+#: .\manast_site\templates\registration\password_reset_done.html:7
+#: .\manast_site\templates\registration\password_reset_form.html:7
+msgid "Password reset"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_complete.html:18
+msgid "ManagementAssistant Login"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_complete.html:32
+msgid "Your password has been updated. You can now"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_confirm.html:21
+msgid "Change password"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_confirm.html:46
+msgid ""
+"The link is invalid, it may have been already used, please request another "
+"one."
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_done.html:21
+msgid "We have sent you a email to reset your password."
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_done.html:25
+msgid ""
+"In case youd haven't received it yet, check if you introduced it correctly "
+"and also the spam folder."
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_email.html:3
+msgid "In order to restablish the password for your account"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_email.html:4
+msgid "go to the following link"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_email.html:8
+msgid "If it doesn't work try copying the url to your search bar"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_email.html:10
+msgid "Regards"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_email.html:11
+msgid "ManagementAssistant Support"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_form.html:21
+msgid "Forgotten password"
+msgstr ""
+
+#: .\manast_site\templates\registration\password_reset_form.html:30
+msgid "Send"
+msgstr ""
+
+#: .\manast_site\templates\shop\edit_shop.html:9
+#: .\manast_site\templates\shop\holidays.html:9
+msgid "Modify shop"
+msgstr ""
+
+#: .\manast_site\templates\shop\edit_shop.html:30
+#: .\manast_site\templates\shop\shop_view.html:34
+msgid "Direction"
+msgstr ""
+
+#: .\manast_site\templates\shop\edit_shop.html:38
+#: .\manast_site\templates\shop\shop_view.html:35
+msgid "Zip Code"
+msgstr ""
+
+#: .\manast_site\templates\shop\edit_shop.html:46
+msgid "Phone Number"
+msgstr ""
+
+#: .\manast_site\templates\shop\edit_shop.html:56
+msgid "Photo"
+msgstr ""
+
+#: .\manast_site\templates\shop\holidays.html:28
+#: .\manast_site\templates\shop\tables\expenses_table.html:48
+#: .\manast_site\templates\shop\tables\sales_table.html:46
+msgid "Date"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:25
+#: .\manast_site\templates\shop\shop_view.html:48
+msgid "Edit Shop Info"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:33
+msgid "Shop Name"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:36
+msgid "Phone number"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:37
+msgid "Opening Hours"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:64
+msgid "Yes"
+msgstr ""
+
+#: .\manast_site\templates\shop\shop_view.html:65
+msgid "No"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\expenses_table.html:51
+#: .\manast_site\templates\shop\tables\sales_table.html:49
+msgid "Quantity"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\expenses_table.html:52
+#: .\manast_site\templates\shop\tables\sales_table.html:51
+msgid "Cost"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\expenses_table.html:53
+msgid "Periodicity"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\expenses_table.html:54
+msgid "Repeat"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\sales_table.html:50
+msgid "Price"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\sales_table.html:52
+msgid "Benefits"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\stats_table.html:5
+#: .\manast_site\templates\sidebar.html:39
+msgid "Stats"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\stats_table.html:18
+msgid "Benefits per week"
+msgstr ""
+
+#: .\manast_site\templates\shop\tables\stats_table.html:40
+msgid "Benefits per day"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:18
+msgid "Welcome"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:31
+msgid "General"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:36
+msgid "Shop Info"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:40
+msgid "Predictions"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:41
+msgid "Upload Sales"
+msgstr ""
+
+#: .\manast_site\templates\sidebar.html:45
+msgid "New Shop"
+msgstr ""
+
+#: .\manast_site\templates\top_navigation.html:41
+msgid "Help"
+msgstr ""
+
+#: .\manast_site\templates\top_navigation.html:42
+msgid "Log Out"
+msgstr ""
+
+#: .\manast_site\urls.py:11
+msgid "login/"
+msgstr ""
+
+#: .\manast_site\urls.py:12
+msgid "logout/"
+msgstr ""
+
+#: .\manast_site\urls.py:13
+msgid "profile/"
+msgstr ""
+
+#: .\manast_site\urls.py:14
+msgid "edit_user/"
+msgstr ""
+
+#: .\manast_site\urls.py:16
+msgid "shop/<int:pk>/"
+msgstr ""
+
+#: .\manast_site\urls.py:17
+msgid "shop/<int:pk>/upload/"
+msgstr ""
+
+#: .\manast_site\urls.py:18
+msgid "shop/<int:pk>/edit_shop/"
+msgstr ""
+
+#: .\manast_site\urls.py:19
+msgid "shop/<int:pk>/holiday/"
+msgstr ""
+
+#: .\manast_site\urls.py:20
+msgid "shop/new_shop/"
+msgstr ""
+
+#: .\manast_site\urls.py:21
+msgid "shop/<int:pk>/delete_shop/"
+msgstr ""
+
+#: .\manast_site\urls.py:23
+msgid "shop/<int:pk>/sales/"
+msgstr ""
+
+#: .\manast_site\urls.py:24
+msgid "shop/<int:pk>/expenses/"
+msgstr ""
+
+#: .\manast_site\urls.py:25
+msgid "shop/<int:pk>/stats/"
+msgstr ""
+
+#: .\manast_site\urls.py:26
+msgid "shop/<int:pk>/predictions/"
+msgstr ""
