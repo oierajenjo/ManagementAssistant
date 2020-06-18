@@ -13,7 +13,7 @@ from manast_site.models import Profile, Shop
 PERIODIC = [
     (1, _("Daily")),
     (2, _("Weekly")),
-    (3, _("Monthly ")),
+    (3, _("Monthly")),
     (4, _("Annual")),
 ]
 

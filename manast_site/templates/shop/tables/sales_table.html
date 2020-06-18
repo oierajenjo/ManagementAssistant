@@ -55,7 +55,7 @@
                                 <tbody>
                                 {% for sale in sales %}
                                     <tr>
-                                        <td>{{ sale.date }}</td>
+                                        <td>{{ sale.date|date:"Y-m-d" }}</td>
                                         <td>{{ sale.item }}</td>
                                         <td>{{ sale.item.category }}</td>
                                         <td>{{ sale.quantity|floatformat:2 }}</td>

@@ -2,7 +2,11 @@
 {% load static %}
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
-        <a href="{% url "profile_view" %}" class="site_title"><i class="fa fa-spinner"></i> <span>{% trans "ManagementAssistant" %}</span></a>
+        <a class="site_title">
+            <i class="fa fa-shopping-bag"></i>
+            <span>{% trans "Man. Assistant" %}</span>
+        </a>
+        {#        <a class="site_title"><i class="fa fa-shopping-bag"></i> ManagementAssistant</a>#}
     </div>
 
     <div class="clearfix"></div>
@@ -44,6 +48,27 @@
                 {%  endfor %}
                 <li><a href="{% url "new_shop" %}"><i class="fa fa-plus-circle"></i> {% trans "New Shop" %}</a></li>
             </ul>
+        </div>
+        <div class="menu_section">
+            <form action="{% url 'set_language' %}" method="post"> {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="hidden" name="next" value="{{ redirect_to }}" class="form-control">
+                    <label for="language_select"><h3>{% trans "Select language" %}</h3></label>
+                    <select class="form-control custom-select" name="language" id="language_select">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" value="Go">Go</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- /sidebar menu -->

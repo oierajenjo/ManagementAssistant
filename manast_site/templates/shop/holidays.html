@@ -61,14 +61,14 @@
     {{ block.super }}
     <!-- Datatables -->
     <script>
-{% comment %}        function myCreateFunctionHour() {
-            var table = document.getElementById("hour-table");
-            var row = table.insertRow(0);
-        }
+        {% comment %}        function myCreateFunctionHour() {
+                    var table = document.getElementById("hour-table");
+                    var row = table.insertRow(0);
+                }
 
-        function myDeleteFunctionHour() {
-            document.getElementById("hour-table").deleteRow(0);
-        }{% endcomment %}
+                function myDeleteFunctionHour() {
+                    document.getElementById("hour-table").deleteRow(0);
+                }{% endcomment %}
         function myCreateFunctionHol() {
             {{ shop.holidays.create }}
             var table = document.getElementById("holiday-table");
