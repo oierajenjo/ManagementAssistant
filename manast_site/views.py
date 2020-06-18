@@ -28,14 +28,14 @@ def login_register(request):
             form.save()
             user = User.objects.last()
             user.save()
-            return redirect(profile_view)
+            return HttpResponseRedirect('login')
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(username=username, password=password)
+
             if user is not None:
                 if user.is_active:
-                    # faster than len()
                     if Profile.objects.filter(user=user).count() == 0:
                         profile = Profile(user=user)
                         profile.save()
@@ -51,13 +51,13 @@ def login_register(request):
     return render(request, 'registration/login_register.html')
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def logout(request):
     auth.logout(request)
-    return redirect(login_register)
+    return HttpResponseRedirect("login")
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def profile_view(request):
     profile = Profile.objects.get(user=request.user)
 
@@ -67,7 +67,7 @@ def profile_view(request):
     return render(request, "account/profile_view.html", context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -80,7 +80,7 @@ def shop_view(request, pk):
     return render(request, "shop/shop_view.html", context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def edit_user(request):
     profile = Profile.objects.get(user=request.user)
 
@@ -103,7 +103,7 @@ def edit_user(request):
                   {'user': request.user, 'profile': profile})
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def holiday(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -130,7 +130,7 @@ def holiday(request, pk):
     return render(request, 'shop/holidays.html', context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def edit_shop(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -160,7 +160,7 @@ def edit_shop(request, pk):
     return render(request, 'shop/edit_shop.html', context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def new_shop(request):
     profile = Profile.objects.get(user=request.user)
     shop = profile.shops.create(name="new")
@@ -168,14 +168,14 @@ def new_shop(request):
     return redirect(edit_shop, pk=shop.pk)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def delete_shop(request, pk):
     shop = Shop.objects.get(pk=pk)
     shop.delete()
     return redirect(profile_view)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def data_upload(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -224,7 +224,7 @@ def data_upload(request, pk):
 
 
 # @cache_page(60 * 2)
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def sales_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -253,7 +253,7 @@ def sales_table(request, pk):
     return render(request, "shop/tables/sales_table.html", context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def expenses_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -282,7 +282,7 @@ def expenses_table(request, pk):
     return render(request, "shop/tables/expenses_table.html", context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def stats_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -321,7 +321,7 @@ def stats_table(request, pk):
     return render(request, "shop/tables/stats_table.html", context)
 
 
-@login_required(login_url='login_register')
+@login_required(login_url='login')
 def predictions_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)

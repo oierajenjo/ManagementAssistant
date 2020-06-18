@@ -9,6 +9,6 @@ matplotlib
 statsmodels
 sklearn
 python-gettext
-ploty
+# ploty
 numpy
 python-memcached

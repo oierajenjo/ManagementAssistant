@@ -20,9 +20,9 @@ def get_day(weekday, week, year):
     # n = '-%s' % num
     d = str(year) + '-W' + str(week) + '-' + str(num)
     # print(d)
-    date = datetime.strptime(d, "%Y-W%W-%u").date().isoformat()
+    day = datetime.strptime(d, "%Y-W%W-%u").date().isoformat()
     # print(date)
-    return date
+    return day
 
 
 # SALES
