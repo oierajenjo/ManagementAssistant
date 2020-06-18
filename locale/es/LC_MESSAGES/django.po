@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 04:07+0200\n"
+"POT-Creation-Date: 2020-06-18 21:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -472,6 +472,18 @@ msgstr "Número de teléfono"
 msgid "Opening Hours"
 msgstr "Horario de apertura"
 
+#: .\manast_site\templates\shop\shop_view.html:54
+#, fuzzy
+#| msgid "New Shop"
+msgid "Delete Shop"
+msgstr "Borrar Tienda"
+
+#: .\manast_site\templates\shop\shop_view.html:61
+#, fuzzy
+#| msgid "Date"
+msgid "Delete"
+msgstr "Borrar"
+
 #: .\manast_site\templates\shop\shop_view.html:64
 msgid "Yes"
 msgstr "Sí"
@@ -580,7 +592,7 @@ msgstr "Ayuda"
 msgid "Log Out"
 msgstr "Cerrar Sesión"
 
-#: .\manast_site\views.py:181
+#: .\manast_site\views.py:182
 msgid ""
 "Title of the file \"01Ventas(semana05-2020).csv\" Order of the CSV should be "
 "Day, Item, Price, Quantity, Cost, Category"
