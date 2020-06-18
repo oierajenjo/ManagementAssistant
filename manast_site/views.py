@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
 from django.utils.translation import gettext_lazy
+from django.views.decorators.cache import cache_page
 
 from manast_database.models import Item, Category
 from manast_site.forms import *
@@ -27,7 +28,7 @@ def login_register(request):
             form.save()
             user = User.objects.last()
             user.save()
-            return HttpResponseRedirect('login')
+            return redirect(profile_view)
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -50,13 +51,13 @@ def login_register(request):
     return render(request, 'registration/login_register.html')
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect("login")
+    return redirect(login_register)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def profile_view(request):
     profile = Profile.objects.get(user=request.user)
 
@@ -66,7 +67,7 @@ def profile_view(request):
     return render(request, "account/profile_view.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -79,7 +80,7 @@ def shop_view(request, pk):
     return render(request, "shop/shop_view.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def edit_user(request):
     profile = Profile.objects.get(user=request.user)
 
@@ -102,7 +103,7 @@ def edit_user(request):
                   {'user': request.user, 'profile': profile})
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def holiday(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -129,7 +130,7 @@ def holiday(request, pk):
     return render(request, 'shop/holidays.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def edit_shop(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -142,7 +143,7 @@ def edit_shop(request, pk):
         })
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/shop/' + str(shop.pk))
+            return HttpResponseRedirect('/shop/' + str(shop.pk) + '/')
     else:
         form = ShopEditForm
 
@@ -159,7 +160,7 @@ def edit_shop(request, pk):
     return render(request, 'shop/edit_shop.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def new_shop(request):
     profile = Profile.objects.get(user=request.user)
     shop = profile.shops.create(name="new")
@@ -167,14 +168,14 @@ def new_shop(request):
     return redirect(edit_shop, pk=shop.pk)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def delete_shop(request, pk):
     shop = Shop.objects.get(pk=pk)
     shop.delete()
     return redirect(profile_view)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def data_upload(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -222,8 +223,8 @@ def data_upload(request, pk):
     return render(request, "shop/upload.html", context)
 
 
-
-@login_required(login_url='login')
+# @cache_page(60 * 2)
+@login_required(login_url='login_register')
 def sales_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -252,7 +253,7 @@ def sales_table(request, pk):
     return render(request, "shop/tables/sales_table.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def expenses_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -281,7 +282,7 @@ def expenses_table(request, pk):
     return render(request, "shop/tables/expenses_table.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def stats_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -320,7 +321,7 @@ def stats_table(request, pk):
     return render(request, "shop/tables/stats_table.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login_register')
 def predictions_table(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -328,25 +329,28 @@ def predictions_table(request, pk):
     expenses = get_all_expenses(shop)
     sales = get_all_sales(shop)
 
-    # arima = arima_prediction(sales)
-    # ax, pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
-    pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
-    # response = HttpResponse(content_type='image/png')
-    # ax.show()
-    direction, prediction = pred_forecast(sales)
+    if len(sales) != 0:
 
-    context = {
-        "profile": profile,
-        "shop": shop,
-        "sales": sales,
-        "expenses": expenses,
-        "pred_mean_dates": pred_mean_dates,
-        "values_mean": values_mean,
-        "pred_mean": pred_mean,
-        "direction": direction,
-        "prediction": prediction
-        # "history": arima["history"],
-    }
+        # arima = arima_prediction(sales)
+        # ax, pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
+        pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
+        # response = HttpResponse(content_type='image/png')
+        # ax.show()
+        direction, prediction = pred_forecast(sales)
 
-    return render(request, "shop/tables/predictions_table.html", context)
+        context = {
+            "profile": profile,
+            "shop": shop,
+            "sales": sales,
+            "expenses": expenses,
+            "pred_mean_dates": pred_mean_dates,
+            "values_mean": values_mean,
+            "pred_mean": pred_mean,
+            "direction": direction,
+            "prediction": prediction
+            # "history": arima["history"],
+        }
 
+        return render(request, "shop/tables/predictions_table.html", context)
+    else:
+        return redirect(shop_view, pk=shop.pk)

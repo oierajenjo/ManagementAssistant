@@ -11,3 +11,4 @@ sklearn
 python-gettext
 ploty
 numpy
+python-memcached
