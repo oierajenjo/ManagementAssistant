@@ -9,3 +9,5 @@ matplotlib
 statsmodels
 sklearn
 python-gettext
+ploty
+numpy

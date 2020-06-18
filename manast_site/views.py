@@ -1,13 +1,11 @@
-import csv
 import io
-import json
-
 from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template.context_processors import csrf
+from django.utils.translation import gettext_lazy
 
 from manast_database.models import Item, Category
 from manast_site.forms import *
@@ -19,7 +17,7 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, "registration/login_register.html")
 
-    return profile_view(request)
+    return redirect(profile_view)
 
 
 def login_register(request):
@@ -92,7 +90,7 @@ def edit_user(request):
         })
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            return redirect(profile_view)
     else:
         form = UserAvatarForm
 
@@ -104,6 +102,7 @@ def edit_user(request):
                   {'user': request.user, 'profile': profile})
 
 
+@login_required(login_url='login')
 def holiday(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
@@ -179,12 +178,12 @@ def delete_shop(request, pk):
 def data_upload(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
-
+    text = gettext_lazy('Title of the file "01Ventas(semana05-2020).csv" Order of the CSV should be Day, Item, Price, '
+                        'Quantity, Cost, Category')
     context = {
         "profile": profile,
         "shop": shop,
-        'order': 'Title of the file "01Ventas(semana05-2020).csv" Order of the CSV should be Day, Item, Price, '
-                 'Quantity, Cost, Category',
+        'order': text,
     }
 
     if request.method == 'GET':
@@ -221,6 +220,7 @@ def data_upload(request, pk):
                 )
 
     return render(request, "shop/upload.html", context)
+
 
 
 @login_required(login_url='login')
@@ -329,43 +329,24 @@ def predictions_table(request, pk):
     sales = get_all_sales(shop)
 
     # arima = arima_prediction(sales)
+    # ax, pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
+    pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
+    # response = HttpResponse(content_type='image/png')
+    # ax.show()
+    direction, prediction = pred_forecast(sales)
 
     context = {
         "profile": profile,
         "shop": shop,
         "sales": sales,
         "expenses": expenses,
-        # "predictions": arima["predictions"],
-        # "error": arima["error"],
-        # "dates": arima["dates"]
+        "pred_mean_dates": pred_mean_dates,
+        "values_mean": values_mean,
+        "pred_mean": pred_mean,
+        "direction": direction,
+        "prediction": prediction
         # "history": arima["history"],
     }
 
     return render(request, "shop/tables/predictions_table.html", context)
 
-# @login_required(login_url='login')
-# def download_csv(request):
-#     if request.method == 'POST':
-#         response = HttpResponse(content_type='text/csv')
-#         data = request.POST.getlist("data")
-#
-#         response['Content-Disposition'] = 'attachment; filename="%s.csv"' % request.POST.get("filename")
-#
-#         writer = csv.writer(response)
-#
-#         headers = json.loads(data[0].replace("'", '"'))
-#         writer.writerow(headers.keys())
-#
-#         for row in data:
-#             title = json.loads(row.replace("'", '"'))
-#
-#             if 'original_title' in title:
-#                 title["game"] = title["original_title"]
-#                 title.pop("original_title")
-#
-#             writer.writerow(list(title.values()))
-#
-#         return response
-#
-# def calendar(request):
-#     return render(request, 'calendar_pic.html')
