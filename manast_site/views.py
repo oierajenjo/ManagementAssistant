@@ -143,7 +143,7 @@ def edit_shop(request, pk):
         })
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/shop/' + str(shop.pk) + '/')
+            return HttpResponseRedirect('/shop/' + str(shop.pk))
     else:
         form = ShopEditForm
 
@@ -223,7 +223,7 @@ def data_upload(request, pk):
     return render(request, "shop/upload.html", context)
 
 
-# @cache_page(60 * 2)
+@cache_page(60 * 2)
 @login_required(login_url='login')
 def sales_table(request, pk):
     profile = Profile.objects.get(user=request.user)
