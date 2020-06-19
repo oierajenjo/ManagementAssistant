@@ -176,7 +176,7 @@ def delete_shop(request, pk):
 
 
 @login_required(login_url='login')
-def data_upload(request, pk):
+def sales_upload(request, pk):
     profile = Profile.objects.get(user=request.user)
     shop = Shop.objects.get(pk=pk)
     text = gettext_lazy('Title of the file "01Ventas(semana05-2020).csv" Order of the CSV should be Day, Item, Price, '
@@ -188,7 +188,7 @@ def data_upload(request, pk):
     }
 
     if request.method == 'GET':
-        return render(request, "shop/upload.html", context)
+        return render(request, "shop/sales_upload.html", context)
 
     else:
         csv_file = request.FILES['file']
@@ -220,7 +220,56 @@ def data_upload(request, pk):
                     shop=Shop.objects.get(pk=pk)
                 )
 
-    return render(request, "shop/upload.html", context)
+    return render(request, "shop/sales_upload.html", context)
+
+
+@login_required(login_url='login')
+def expenses_upload(request, pk):
+    profile = Profile.objects.get(user=request.user)
+    shop = Shop.objects.get(pk=pk)
+    text = gettext_lazy('Title of the file "01Gastos(semana05-2020).csv" Order of the CSV should be Day, Item, '
+                        'Quantity, Cost, Category, Repeat, Periodicity')
+    context = {
+        "profile": profile,
+        "shop": shop,
+        'order': text,
+    }
+
+    if request.method == 'GET':
+        return render(request, "shop/expenses_upload.html", context)
+
+    else:
+        csv_file = request.FILES['file']
+        if not csv_file.name.endswith('.csv'):
+            messages.error(request, 'Please upload a .csv file.')
+        else:
+            file_name = request.FILES['file'].name
+            week = file_name[-12:-10]
+            year = file_name[-9:-5]
+            # "01Gastos(semana05-2020)"
+            data_set = csv_file.read().decode('UTF-8')
+            io_string = io.StringIO(data_set)
+            next(io_string)
+            for column in csv.reader(io_string, delimiter=';', quotechar="|"):
+                _, created = Category.objects.update_or_create(
+                    name=column[4]
+                )
+                _, created2 = Item.objects.update_or_create(
+                    name=column[1],
+                    category=Category.objects.get(name=column[5]),
+                    shop=Shop.objects.get(pk=pk)
+                )
+                _, created3 = Expense.objects.update_or_create(
+                    date=get_day(column[0], week, year),
+                    item=Item.objects.get(name=column[1]),
+                    quantity=float(column[2].replace(',', '.')),
+                    cost=float(column[3].replace(',', '.')),
+                    repeat=column[5],
+                    periodicity=column[6],
+                    shop=Shop.objects.get(pk=pk)
+                )
+
+    return render(request, "shop/expenses_upload.html", context)
 
 
 @cache_page(60 * 2)

@@ -1,0 +1,41 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %} {{ shop.name }} {% trans "Upload Sales" %}{% endblock title %}
+
+{% block stylesheets %}
+    {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        {% if messages %}
+            {% for message in messages %}
+                <div>
+                    <strong>{{ message|safe }}</strong>
+                </div>
+            {% endfor %}
+        {% else %}
+            {{ order }}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h1>{% trans "Upload a CSV file" %}</h1>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="file">
+                        {#                        <label class="custom-file-label" for="file">{% trans "Choose file" %}</label>#}
+                    </div>
+                    <p>{% trans "Only accepts CSV files" %}</p>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary btn-success" type="submit">{% trans "Upload" %}</button>
+                    </div>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    {{ block.super }}
+{% endblock javascripts %}

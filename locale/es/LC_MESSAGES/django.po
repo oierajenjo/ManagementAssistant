@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-18 21:22+0200\n"
+"POT-Creation-Date: 2020-06-19 18:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,7 +182,7 @@ msgstr "vacaciones_fecha"
 
 #: .\manast_site\models.py:61
 msgid "Holiday"
-msgstr "Vacaciones"
+msgstr "Vacacion"
 
 #: .\manast_site\models.py:62 .\manast_site\templates\shop\holidays.html:21
 #: .\manast_site\templates\shop\shop_view.html:41
@@ -408,7 +408,7 @@ msgstr "ir al siguiente enlace"
 
 #: .\manast_site\templates\registration\password_reset_email.html:8
 msgid "If it doesn't work try copying the url to your search bar"
-msgstr "Si no funciona, intenta copiar la url en tu barra de búsqueda."
+msgstr "Si no funciona, intenta copiar la url en tu barra de búsqueda"
 
 #: .\manast_site\templates\registration\password_reset_email.html:10
 msgid "Regards"
@@ -416,7 +416,7 @@ msgstr "Saludos"
 
 #: .\manast_site\templates\registration\password_reset_email.html:11
 msgid "ManagementAssistant Support"
-msgstr "ManagementAssistant Soporte "
+msgstr "ManagementAssistant Soporte Técnico"
 
 #: .\manast_site\templates\registration\password_reset_form.html:21
 msgid "Forgotten password"
@@ -449,11 +449,38 @@ msgstr "Número de Teléfono"
 msgid "Photo"
 msgstr "Foto"
 
+#: .\manast_site\templates\shop\expenses_upload.html:5
+#: .\manast_site\templates\sidebar.html:46
+#, fuzzy
+#| msgid "Expenses"
+msgid "Upload Expenses"
+msgstr "Subir Gastos"
+
+#: .\manast_site\templates\shop\expenses_upload.html:23
+#: .\manast_site\templates\shop\sales_upload.html:23
+msgid "Upload a CSV file"
+msgstr "Subir un archivo CSV"
+
+#: .\manast_site\templates\shop\expenses_upload.html:29
+#: .\manast_site\templates\shop\sales_upload.html:29
+msgid "Only accepts CSV files"
+msgstr "Sólo acepta archivos CSV"
+
+#: .\manast_site\templates\shop\expenses_upload.html:31
+#: .\manast_site\templates\shop\sales_upload.html:31
+msgid "Upload"
+msgstr "Subir"
+
 #: .\manast_site\templates\shop\holidays.html:28
 #: .\manast_site\templates\shop\tables\expenses_table.html:48
 #: .\manast_site\templates\shop\tables\sales_table.html:46
 msgid "Date"
 msgstr "Fecha"
+
+#: .\manast_site\templates\shop\sales_upload.html:5
+#: .\manast_site\templates\sidebar.html:45
+msgid "Upload Sales"
+msgstr "Subir Ventas"
 
 #: .\manast_site\templates\shop\shop_view.html:25
 #: .\manast_site\templates\shop\shop_view.html:48
@@ -510,6 +537,16 @@ msgstr "Periodicidad"
 msgid "Repeat"
 msgstr "Repetición"
 
+#: .\manast_site\templates\shop\tables\expenses_table.html:79
+#, fuzzy
+#| msgid "Expenses"
+msgid "Expenses per Item"
+msgstr "Gastos por artículo"
+
+#: .\manast_site\templates\shop\tables\expenses_table.html:98
+msgid "Expenses per Category"
+msgstr "Gastos por categoría"
+
 #: .\manast_site\templates\shop\tables\predictions_table.html:5
 #: .\manast_site\templates\shop\tables\stats_table.html:5
 #: .\manast_site\templates\sidebar.html:43
@@ -536,6 +573,18 @@ msgstr "Precio"
 msgid "Benefits"
 msgstr "Beneficios"
 
+#: .\manast_site\templates\shop\tables\sales_table.html:77
+#, fuzzy
+#| msgid "Benefits per week"
+msgid "Benefits per Item"
+msgstr "Beneficios por semana"
+
+#: .\manast_site\templates\shop\tables\sales_table.html:96
+#, fuzzy
+#| msgid "Benefits per day"
+msgid "Benefits per Category"
+msgstr "Beneficios por día"
+
 #: .\manast_site\templates\shop\tables\stats_table.html:18
 msgid "Benefits per day"
 msgstr "Beneficios por día"
@@ -543,18 +592,6 @@ msgstr "Beneficios por día"
 #: .\manast_site\templates\shop\tables\stats_table.html:40
 msgid "Benefits per week"
 msgstr "Beneficios por semana"
-
-#: .\manast_site\templates\shop\upload.html:23
-msgid "Upload a CSV file"
-msgstr "Subir un archivo CSV"
-
-#: .\manast_site\templates\shop\upload.html:29
-msgid "Only accepts CSV files"
-msgstr "Sólo acepta archivos CSV"
-
-#: .\manast_site\templates\shop\upload.html:31
-msgid "Upload"
-msgstr "Subir"
 
 #: .\manast_site\templates\sidebar.html:7
 msgid "Man. Assistant"
@@ -572,15 +609,11 @@ msgstr "General"
 msgid "Shop Info"
 msgstr "Información Tienda"
 
-#: .\manast_site\templates\sidebar.html:45
-msgid "Upload Sales"
-msgstr "Subir Ventas"
-
-#: .\manast_site\templates\sidebar.html:49
+#: .\manast_site\templates\sidebar.html:50
 msgid "New Shop"
 msgstr "Nueva Tienda"
 
-#: .\manast_site\templates\sidebar.html:56
+#: .\manast_site\templates\sidebar.html:57
 msgid "Select language"
 msgstr "Seleccione idioma"
 
@@ -599,6 +632,18 @@ msgid ""
 msgstr ""
 "Título del archivo \"01Ventas(semana05-2020).csv\" El orden del CSV debe ser "
 "Día, Artículo, Precio, Cantidad, Costo, Categoría"
+
+#: .\manast_site\views.py:230
+#, fuzzy
+#| msgid ""
+#| "Title of the file \"01Ventas(semana05-2020).csv\" Order of the CSV should "
+#| "be Day, Item, Price, Quantity, Cost, Category"
+msgid ""
+"Title of the file \"01Gastos(semana05-2020).csv\" Order of the CSV should be "
+"Day, Item, Quantity, Cost, Category, Repeat, Periodicity"
+msgstr ""
+"Título del archivo \"01Gastos(semana05-2020).csv\" El orden del CSV debe ser "
+"Día, Artículo, Cantidad, Costo, Categoría, Repetición, Periodicidad"
 
 #~ msgid "admin/"
 #~ msgstr "admin/"

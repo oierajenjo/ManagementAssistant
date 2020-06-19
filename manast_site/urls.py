@@ -14,7 +14,8 @@ urlpatterns = [
     path('edit_user', views.edit_user, name='edit_user'),
 
     path('shop/<int:pk>', views.shop_view, name='shop'),
-    path('shop/<int:pk>/upload', views.data_upload, name='data_upload'),
+    path('shop/<int:pk>/sales/upload', views.sales_upload, name='sales_upload'),
+    path('shop/<int:pk>/expenses/upload', views.expenses_upload, name='expenses_upload'),
     path('shop/<int:pk>/edit_shop', views.edit_shop, name='edit_shop'),
     path('shop/<int:pk>/holiday', views.holiday, name='holiday'),
     path('shop/new_shop', views.new_shop, name='new_shop'),

@@ -42,7 +42,8 @@
                             <li><a href="{% url "expenses" pk=shop.pk%}">{% trans "Expenses" %} <i class="fa fa-cart-arrow-down"></i></a></li>
                             <li><a href="{% url "stats" pk=shop.pk%}">{% trans "Stats" %} <i class="fa fa-area-chart"></i></a></li>
                             <li><a href="{% url "predictions" pk=shop.pk%}">{% trans "Predictions" %} <i class="fa fa-line-chart"></i></a></li>
-                            <li><a href="{% url "data_upload" pk=shop.pk%}">{% trans "Upload Sales" %} <i class="fa fa-upload"></i></a></li>
+                            <li><a href="{% url "sales_upload" pk=shop.pk%}">{% trans "Upload Sales" %} <i class="fa fa-upload"></i></a></li>
+                            <li><a href="{% url "expenses_upload" pk=shop.pk%}">{% trans "Upload Expenses" %} <i class="fa fa-upload"></i></a></li>
                         </ul>
                     </li>
                 {%  endfor %}
