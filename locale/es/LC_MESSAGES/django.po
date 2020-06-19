@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 18:45+0200\n"
+"POT-Creation-Date: 2020-06-19 22:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -554,8 +554,8 @@ msgid "Stats"
 msgstr "Estadísticas"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:18
-msgid "Prediction of benefits per day by Mean Square"
-msgstr "Predicción de beneficios por día por Media Cuadrática"
+msgid "Benefits Mean Square Day by Day"
+msgstr "Beneficios Media Cuadrática Día a Día"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:40
 msgid "Time Series Forecast Model"
@@ -644,6 +644,9 @@ msgid ""
 msgstr ""
 "Título del archivo \"01Gastos(semana05-2020).csv\" El orden del CSV debe ser "
 "Día, Artículo, Cantidad, Costo, Categoría, Repetición, Periodicidad"
+
+#~ msgid "Prediction of benefits per day by Mean Square"
+#~ msgstr "Predicción de beneficios por día por Media Cuadrática"
 
 #~ msgid "admin/"
 #~ msgstr "admin/"
