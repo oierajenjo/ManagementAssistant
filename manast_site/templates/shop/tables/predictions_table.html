@@ -76,9 +76,10 @@
         var app = {};
         option = null;
         option = {
-            {% comment %}            title: {
-                            text: '折线图堆叠'
-                        },{% endcomment %}
+            title: {
+                text: '{% trans "Benefits Mean Square Day by Day" %}',
+                show: false
+            },
             tooltip: {
                 trigger: 'axis'
             },
@@ -93,7 +94,9 @@
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {}
+                    saveAsImage: {
+                        title: '{% trans "Save as image" %}'
+                    }
                 }
             },
             xAxis: {

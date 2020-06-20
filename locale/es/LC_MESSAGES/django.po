@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 22:26+0200\n"
+"POT-Creation-Date: 2020-06-20 20:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgstr "Venta"
 
 #: .\manast_database\models.py:121
 #: .\manast_site\templates\shop\tables\predictions_table.html:88
-#: .\manast_site\templates\shop\tables\predictions_table.html:111
+#: .\manast_site\templates\shop\tables\predictions_table.html:113
 #: .\manast_site\templates\shop\tables\sales_table.html:5
 #: .\manast_site\templates\shop\tables\sales_table.html:21
 #: .\manast_site\templates\sidebar.html:41
@@ -135,7 +135,7 @@ msgstr "Resultados"
 
 #: .\manast_site\functions.py:400
 #: .\manast_site\templates\shop\tables\predictions_table.html:88
-#: .\manast_site\templates\shop\tables\predictions_table.html:117
+#: .\manast_site\templates\shop\tables\predictions_table.html:119
 #: .\manast_site\templates\sidebar.html:44
 msgid "Predictions"
 msgstr "Predicciones"
@@ -226,7 +226,6 @@ msgid "Shops"
 msgstr "Tiendas"
 
 #: .\manast_site\models.py:94
-#: .\manast_site\templates\registration\login_register.html:28
 msgid "user"
 msgstr "usuario"
 
@@ -260,7 +259,14 @@ msgstr "Nombre"
 #: .\manast_site\templates\account\edit_user.html:27
 #: .\manast_site\templates\registration\login_register.html:56
 msgid "Surname"
-msgstr "Apellido"
+msgstr "Apellidos"
+
+#: .\manast_site\templates\account\edit_user.html:35
+#: .\manast_site\templates\account\profile_view.html:31
+#: .\manast_site\templates\registration\login_register.html:28
+#: .\manast_site\templates\registration\login_register.html:63
+msgid "Username"
+msgstr "Nombre de usuario"
 
 #: .\manast_site\templates\account\edit_user.html:51
 #: .\manast_site\templates\registration\login_register.html:34
@@ -281,7 +287,7 @@ msgstr "Repetir Contraseña"
 msgid "Avatar"
 msgstr "Avatar"
 
-#: .\manast_site\templates\account\edit_user.html:81
+#: .\manast_site\templates\account\edit_user.html:80
 #: .\manast_site\templates\registration\password_reset_confirm.html:40
 #: .\manast_site\templates\shop\edit_shop.html:130
 #: .\manast_site\templates\shop\holidays.html:49
@@ -290,13 +296,10 @@ msgstr "Guardar"
 
 #: .\manast_site\templates\account\profile_view.html:25
 #: .\manast_site\templates\account\profile_view.html:40
+#: .\manast_site\templates\sidebar.html:79
 #: .\manast_site\templates\top_navigation.html:25
 msgid "Edit Profile"
 msgstr "Editar Perfil"
-
-#: .\manast_site\templates\account\profile_view.html:31
-msgid "Username"
-msgstr "Nombre de usuario"
 
 #: .\manast_site\templates\account\profile_view.html:32
 msgid "Name & last name"
@@ -349,11 +352,6 @@ msgstr "¡Bienvenido de nuevo!"
 #: .\manast_site\templates\registration\login_register.html:39
 msgid "Have you forgotten your password?"
 msgstr "¿Ha olvidado su contraseña?"
-
-#: .\manast_site\templates\registration\login_register.html:63
-#: .\manast_site\templates\sidebar.html:33
-msgid "User"
-msgstr "Usuario"
 
 #: .\manast_site\templates\registration\login_register.html:88
 msgid "Create"
@@ -451,8 +449,6 @@ msgstr "Foto"
 
 #: .\manast_site\templates\shop\expenses_upload.html:5
 #: .\manast_site\templates\sidebar.html:46
-#, fuzzy
-#| msgid "Expenses"
 msgid "Upload Expenses"
 msgstr "Subir Gastos"
 
@@ -500,14 +496,10 @@ msgid "Opening Hours"
 msgstr "Horario de apertura"
 
 #: .\manast_site\templates\shop\shop_view.html:54
-#, fuzzy
-#| msgid "New Shop"
 msgid "Delete Shop"
 msgstr "Borrar Tienda"
 
 #: .\manast_site\templates\shop\shop_view.html:61
-#, fuzzy
-#| msgid "Date"
 msgid "Delete"
 msgstr "Borrar"
 
@@ -538,8 +530,6 @@ msgid "Repeat"
 msgstr "Repetición"
 
 #: .\manast_site\templates\shop\tables\expenses_table.html:79
-#, fuzzy
-#| msgid "Expenses"
 msgid "Expenses per Item"
 msgstr "Gastos por artículo"
 
@@ -554,6 +544,7 @@ msgid "Stats"
 msgstr "Estadísticas"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:18
+#: .\manast_site\templates\shop\tables\predictions_table.html:81
 msgid "Benefits Mean Square Day by Day"
 msgstr "Beneficios Media Cuadrática Día a Día"
 
@@ -565,6 +556,12 @@ msgstr "Modelo de Predicción de Series Temporales"
 msgid "Next day prediction"
 msgstr "Predicción del día siguiente"
 
+#: .\manast_site\templates\shop\tables\predictions_table.html:99
+#: .\manast_site\templates\shop\tables\stats_table.html:97
+#: .\manast_site\templates\shop\tables\stats_table.html:149
+msgid "Save as image"
+msgstr "Guardar como imagen"
+
 #: .\manast_site\templates\shop\tables\sales_table.html:50
 msgid "Price"
 msgstr "Precio"
@@ -574,22 +571,20 @@ msgid "Benefits"
 msgstr "Beneficios"
 
 #: .\manast_site\templates\shop\tables\sales_table.html:77
-#, fuzzy
-#| msgid "Benefits per week"
 msgid "Benefits per Item"
 msgstr "Beneficios por semana"
 
 #: .\manast_site\templates\shop\tables\sales_table.html:96
-#, fuzzy
-#| msgid "Benefits per day"
 msgid "Benefits per Category"
 msgstr "Beneficios por día"
 
 #: .\manast_site\templates\shop\tables\stats_table.html:18
+#: .\manast_site\templates\shop\tables\stats_table.html:130
 msgid "Benefits per day"
 msgstr "Beneficios por día"
 
 #: .\manast_site\templates\shop\tables\stats_table.html:40
+#: .\manast_site\templates\shop\tables\stats_table.html:77
 msgid "Benefits per week"
 msgstr "Beneficios por semana"
 
@@ -600,6 +595,10 @@ msgstr "Man. Assistant"
 #: .\manast_site\templates\sidebar.html:22
 msgid "Welcome"
 msgstr "Bienvenido"
+
+#: .\manast_site\templates\sidebar.html:33
+msgid "User"
+msgstr "Usuario"
 
 #: .\manast_site\templates\sidebar.html:35
 msgid "General"
@@ -614,8 +613,16 @@ msgid "New Shop"
 msgstr "Nueva Tienda"
 
 #: .\manast_site\templates\sidebar.html:57
-msgid "Select language"
-msgstr "Seleccione idioma"
+msgid "Select Language"
+msgstr "Seleccione Idioma"
+
+#: .\manast_site\templates\sidebar.html:82
+msgid "FullScreen"
+msgstr "Pantalla Completa"
+
+#: .\manast_site\templates\sidebar.html:85
+msgid "Logout"
+msgstr "Cerrar Sesión"
 
 #: .\manast_site\templates\top_navigation.html:28
 msgid "Help"
@@ -634,10 +641,6 @@ msgstr ""
 "Día, Artículo, Precio, Cantidad, Costo, Categoría"
 
 #: .\manast_site\views.py:230
-#, fuzzy
-#| msgid ""
-#| "Title of the file \"01Ventas(semana05-2020).csv\" Order of the CSV should "
-#| "be Day, Item, Price, Quantity, Cost, Category"
 msgid ""
 "Title of the file \"01Gastos(semana05-2020).csv\" Order of the CSV should be "
 "Day, Item, Quantity, Cost, Category, Repeat, Periodicity"

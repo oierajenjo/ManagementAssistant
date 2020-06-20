@@ -71,9 +71,10 @@
         var app = {};
         option = null;
         option = {
-            {% comment %}            title: {
-                            text: '折线图堆叠'
-                        },{% endcomment %}
+            title: {
+                text: '{% trans "Benefits per week" %}',
+                show: false
+            },
             tooltip: {
                 trigger: 'axis'
             },
@@ -90,7 +91,9 @@
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {}
+                    saveAsImage: {
+                        title: '{% trans "Save as image" %}'
+                    }
                 }
             },
             xAxis: {
@@ -121,9 +124,9 @@
         var app = {};
         option = null;
         option = {
-            {% comment %}            title: {
-                            text: '折线图堆叠'
-                        },{% endcomment %}
+            title: {
+                text: '{% trans "Benefits per day" %}',
+                show: false            },
             tooltip: {
                 trigger: 'axis'
             },
@@ -140,7 +143,9 @@
             },
             toolbox: {
                 feature: {
-                    saveAsImage: {}
+                    saveAsImage: {
+                        title: '{% trans "Save as image" %}'
+                    }
                 }
             },
             xAxis: {
