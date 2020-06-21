@@ -8,6 +8,8 @@ from pandas import read_csv
 from pandas.plotting import register_matplotlib_converters
 from statsmodels.tsa.ar_model import AutoReg
 from statsmodels.tsa.ar_model import AutoRegResults
+from statsmodels.tsa.arima_model import ARMA, ARIMA
+
 from manast_database.models import Expense, Sale
 
 register_matplotlib_converters()
@@ -304,7 +306,7 @@ def sales_to_csv(sales):
     csv_columns = ['Date', 'Benefits']
 
     # csv_file = '{}predictions/predictions.csv'.format(settings.STATIC_URL)
-    csv_file = "manast_site/static/predictions/predictions.csv"
+    csv_file = "manast_site/static/predictions/sales.csv"
 
     return csv_file, csv_columns, values
 
@@ -348,41 +350,27 @@ def pred_forecast(sales):
     size = int(len(x) * 0.66)
     train, test = x[0:size], x[size:]
     # train autoregression
-    window = 6
-    model = AutoReg(train, lags=window)
-    model_fit = model.fit()
 
-    # coef = model_fit.params
-    # # walk forward over time steps in test
-    # history = [train[i] for i in range(len(train))]
-    # predictions = list()
-    # for t in range(len(test)):
-    #     yhat = predict(coef, history)
-    #     obs = test[t]
-    #     predictions.append(yhat)
-    #     history.append(obs)
-    # rmse = sqrt(mean_squared_error(test, predictions))
-    # print('Test RMSE: %.3f' % rmse)
-    # # plot
-    # pyplot.plot(test)
-    # pyplot.plot(predictions, color='red')
-    # pyplot.show()
+    # AR
+    window = 6
+    model_ar = AutoReg(train, lags=window)
+    model_fit_ar = model_ar.fit()
 
     # save model to file
-    model_fit.save("manast_site/static/predictions/ar_model.pkl")
+    model_fit_ar.save("manast_site/static/predictions/ar_model.pkl")
     # save the differenced dataset
     numpy.save("manast_site/static/predictions/ar_data.npy", x)
     # save the last ob
     numpy.save("manast_site/static/predictions/ar_obs.npy", [series.values[-1]])
 
     # save coefficients
-    coef = model_fit.params
-    numpy.save("manast_site/static/predictions/man_model.npy", coef)
+    coef = model_fit_ar.params
+    numpy.save("manast_site/static/predictions/ar_man_model.npy", coef)
     # save lag
     lag = x[-window:]
-    numpy.save("manast_site/static/predictions/man_data.npy", lag)
+    numpy.save("manast_site/static/predictions/ar_man_data.npy", lag)
     # save the last ob
-    numpy.save("manast_site/static/predictions/man_obs.npy", [series.values[-1]])
+    numpy.save("manast_site/static/predictions/ar_man_obs.npy", [series.values[-1]])
 
     # load model
     model = AutoRegResults.load("manast_site/static/predictions/ar_model.pkl")
@@ -391,10 +379,10 @@ def pred_forecast(sales):
     # make prediction
     predictions = model.predict(start=len(data), end=len(data))
     # transform prediction
-    yhat = predictions[0] + last_ob[0]
+    yhat_ar = predictions[0] + last_ob[0]
 
-    direction = "manast_site/static/predictions/prediction.png"
-    direction_2 = "predictions/prediction.png"
+    direction = "manast_site/static/predictions/predictionAR.png"
+    direction_ar = "predictions/predictionAR.png"
     pyplot.close()
     pyplot.plot(test, color='blue', label=_("Results"))
     pyplot.plot(predictions, color='red', label=_("Predictions"))
@@ -402,147 +390,64 @@ def pred_forecast(sales):
     pyplot.savefig(direction)
     # print('Prediction: %f' % yhat)
 
-    return direction_2, yhat
+    # MA
 
-# def prediction(sales):
-#     value = []
-#     tmp = {}
-#
-#     for sale in sales:
-#         day = str(sale.date.strftime("%Y-%m-%d"))
-#         if day not in tmp.keys():
-#             v = {day: float(sale.benefits())}
-#             tmp.update(v)
-#         else:
-#             c = tmp.get(day)
-#             v = {day: float(sale.benefits()) + c}
-#             tmp.update(v)
-#     # print(tmp)
-#
-#     for tk in tmp.keys():
-#         pmp = {'Date': str(tk), 'Benefits': tmp[tk]}
-#         value.append(pmp)
-#
-#     print(value)
-#     csv_columns = ['Date', 'Benefits']
-#
-#     csv_file = "predictions.csv"
-#     try:
-#         with open(csv_file, 'w') as csvfile:
-#             writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
-#             writer.writeheader()
-#             for data in value:
-#                 writer.writerow(data)
-#     except IOError:
-#         print("I/O error")
-#
-#     data = pd.read_csv('predictions.csv')
-#     data.head()
-#     data.describe()
-#     # data.StateHoliday = data.StateHoliday.astype(str)
-#
-#     def count_unique(column):
-#         return len(column.unique())
-#
-#     data.apply(count_unique, axis=0).astype(np.int32)
-#     data.isnull().any()
-#
-#     store_data = data.sort_values('Date')
-#     plt.figure(figsize=(20, 10))  # Set figsize to increase size of figure
-#     plt.plot(store_data.values)
-#     plt.show()
+    model_ma = ARMA(train, order=(0, 1))
+    model_fit_ma = model_ma.fit(disp=False)
 
+    # save model to file
+    model_fit_ma.save("manast_site/static/predictions/ma_model.pkl")
+    # save the differenced dataset
+    numpy.save("manast_site/static/predictions/ma_data.npy", x)
+    # save the last ob
+    numpy.save("manast_site/static/predictions/ma_obs.npy", [series.values[-1]])
 
-# def get_stationarity(timeseries):
-#     # rolling statistics
-#     rolling_mean = timeseries.rolling(window=12).mean()
-#     rolling_std = timeseries.rolling(window=12).std()
-#
-#     # rolling statistics plot
-#     original = plt.plot(timeseries, color='blue', label='Original')
-#     mean = plt.plot(rolling_mean, color='red', label='Rolling Mean')
-#     std = plt.plot(rolling_std, color='black', label='Rolling Std')
-#     plt.legend(loc='best')
-#     plt.title('Rolling Mean & Standard Deviation')
-#     plt.show(block=False)
-#
-#     # Dickey–Fuller test:
-#     result = adfuller(timeseries['Sales'])
-#     print('ADF Statistic: {}'.format(result[0]))
-#     print('p-value: {}'.format(result[1]))
-#     print('Critical Values:')
-#     for key, value in result[4].items():
-#         print('\t{}: {}'.format(key, value))
+    # save coefficients
+    coef = model_fit_ma.params
+    numpy.save("manast_site/static/predictions/ma_man_model.npy", coef)
+    # save lag
+    lag = x[-window:]
+    numpy.save("manast_site/static/predictions/ma_man_data.npy", lag)
+    # save the last ob
+    numpy.save("manast_site/static/predictions/ma_man_obs.npy", [series.values[-1]])
 
+    # load model
+    model = AutoRegResults.load("manast_site/static/predictions/ma_model.pkl")
+    data = numpy.load("manast_site/static/predictions/ma_data.npy")
+    last_ob = numpy.load("manast_site/static/predictions/ma_obs.npy")
+    # make prediction
+    predictions = model.predict(start=len(data), end=len(data))
+    # transform prediction
+    yhat_ma = predictions[0] + last_ob[0]
 
-# PREDICTIONS
-# def arima_prediction(sales):
-#
-#     ben = []
-#     dates = []
-#     for sale in sales:
-#         day = str(sale.date.strftime("%Y-%m-%d"))
-#         if day not in dates:
-#             ben.append(float(sale.benefits()))
-#             dates.append(day)
-#         else:
-#             v = ben[dates.index(day)]
-#             ben[dates.index(day)] = v + float(sale.benefits())
-#
-#     plt.xlabel('Date')
-#     plt.ylabel('Number of air passengers')
-#     plt.plot([dates, ben])
-#     plt.show()
-#
-#     # # print(h)
-#     # # print(len(h))
-#     # # print(len(dates))
-#     # # print(dates)
-#     # size = int(len(h) * 0.66)
-#     # print(size)
-#     # # size = int(len(h))
-#     # train, test = h[0:size], h[size:len(h)]
-#     # print(train)
-#     # print(test)
-#     # history = [x for x in train]
-#     # print(history)
-#     # predictions = list()
-#     # for t in range(len(test)):
-#     #     model = ARIMAResults
-#     #     model = ARIMA(history, order=(5, 1, 0))
-#     #     model_fit = model.fit(disp=0)
-#     #     output = model_fit.forecast(steps=1, exog=None, alpha=0.05)
-#     #     yhat = output[0]
-#     #     predictions.append(yhat)
-#     #     obs = test[t]
-#     #     history.append(obs)
-#     #     print('predicted=%f, expected=%f' % (yhat, obs))
-#     # error = mean_squared_error(test, predictions)
-#     # print('Test MSE: %.3f' % error)
-#     # # plot
-#     # print(len(test))
-#     # print(len(predictions))
-#     # print(len(dates))
-#     # ax = plt.gca()
-#     # formatter = mdates.DateFormatter("%Y-%m-%d")
-#     # ax.xaxis.set_major_formatter(formatter)
-#     # locator = mdates.DayLocator()
-#     # ax.xaxis.set_major_locator(locator)
-#     # plt.plot(dates, test, label="Results")
-#     # plt.plot(dates, predictions, label="Predictions")
-#     #
-#     # plt.legend()
-#     # plt.show()
-#     #
-#     # # pyplot.plot(test)
-#     # # pyplot.plot(predictions, color='red')
-#     # # pyplot.xticks([test, predictions], dates)
-#     # # pyplot.show()
-#     # # pyplot.savefig("plot.png")
-#     context = {
-#         # "predictions": predictions,
-#         # "error": error,
-#         # "history": history,
-#         "dates": dates
-#     }
-#     return context
+    # ARMA
+
+    model_arma = ARMA(train, order=(2, 1))
+    model_fit_arma = model_arma.fit(disp=False)
+
+    # save model to file
+    model_fit_arma.save("manast_site/static/predictions/arma_model.pkl")
+    # save the differenced dataset
+    numpy.save("manast_site/static/predictions/arma_data.npy", x)
+    # save the last ob
+    numpy.save("manast_site/static/predictions/arma_obs.npy", [series.values[-1]])
+
+    # save coefficients
+    coef = model_fit_arma.params
+    numpy.save("manast_site/static/predictions/arma_man_model.npy", coef)
+    # save lag
+    lag = x[-window:]
+    numpy.save("manast_site/static/predictions/arma_man_data.npy", lag)
+    # save the last ob
+    numpy.save("manast_site/static/predictions/arma_man_obs.npy", [series.values[-1]])
+
+    # load model
+    model = AutoRegResults.load("manast_site/static/predictions/arma_model.pkl")
+    data = numpy.load("manast_site/static/predictions/arma_data.npy")
+    last_ob = numpy.load("manast_site/static/predictions/arma_obs.npy")
+    # make prediction
+    predictions = model.predict(start=len(data), end=len(data))
+    # transform prediction
+    yhat_arma = predictions[0] + last_ob[0]
+
+    return direction_ar, yhat_ar, yhat_ma, yhat_arma

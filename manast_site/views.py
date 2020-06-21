@@ -385,7 +385,7 @@ def predictions_table(request, pk):
         pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
         # response = HttpResponse(content_type='image/png')
         # ax.show()
-        direction, prediction = pred_forecast(sales)
+        direction_ar, prediction_ar, prediction_ma, prediction_arma = pred_forecast(sales)
 
         context = {
             "profile": profile,
@@ -395,11 +395,36 @@ def predictions_table(request, pk):
             "pred_mean_dates": pred_mean_dates,
             "values_mean": values_mean,
             "pred_mean": pred_mean,
-            "direction": direction,
-            "prediction": prediction
+            "direction_ar": direction_ar,
+            "prediction_ar": prediction_ar,
+            "prediction_ma": prediction_ma,
+            "prediction_arma": prediction_arma
             # "history": arima["history"],
         }
 
         return render(request, "shop/tables/predictions_table.html", context)
     else:
-        return redirect(shop_view, pk=shop.pk)
+        pred_mean_dates = None
+        values_mean = None
+        pred_mean = None
+        prediction_ar = 0.00
+        direction_ar = None
+        prediction_ma = 0.00
+        prediction_arma = 0.00
+
+        context = {
+            "profile": profile,
+            "shop": shop,
+            "sales": sales,
+            "expenses": expenses,
+            "pred_mean_dates": pred_mean_dates,
+            "values_mean": values_mean,
+            "pred_mean": pred_mean,
+            "direction_ar": direction_ar,
+            "prediction_ar": prediction_ar,
+            "prediction_ma": prediction_ma,
+            "prediction_arma": prediction_arma
+            # "history": arima["history"],
+        }
+
+        return render(request, "shop/tables/predictions_table.html", context)

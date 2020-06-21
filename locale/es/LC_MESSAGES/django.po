@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-20 20:37+0200\n"
+"POT-Creation-Date: 2020-06-21 21:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,21 +121,21 @@ msgid "Sale"
 msgstr "Venta"
 
 #: .\manast_database\models.py:121
-#: .\manast_site\templates\shop\tables\predictions_table.html:88
-#: .\manast_site\templates\shop\tables\predictions_table.html:113
+#: .\manast_site\templates\shop\tables\predictions_table.html:112
+#: .\manast_site\templates\shop\tables\predictions_table.html:137
 #: .\manast_site\templates\shop\tables\sales_table.html:5
 #: .\manast_site\templates\shop\tables\sales_table.html:21
 #: .\manast_site\templates\sidebar.html:41
 msgid "Sales"
 msgstr "Ventas"
 
-#: .\manast_site\functions.py:399
+#: .\manast_site\functions.py:387
 msgid "Results"
 msgstr "Resultados"
 
-#: .\manast_site\functions.py:400
-#: .\manast_site\templates\shop\tables\predictions_table.html:88
-#: .\manast_site\templates\shop\tables\predictions_table.html:119
+#: .\manast_site\functions.py:388
+#: .\manast_site\templates\shop\tables\predictions_table.html:112
+#: .\manast_site\templates\shop\tables\predictions_table.html:143
 #: .\manast_site\templates\sidebar.html:44
 msgid "Predictions"
 msgstr "Predicciones"
@@ -544,19 +544,31 @@ msgid "Stats"
 msgstr "Estadísticas"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:18
-#: .\manast_site\templates\shop\tables\predictions_table.html:81
+#: .\manast_site\templates\shop\tables\predictions_table.html:105
 msgid "Benefits Mean Square Day by Day"
 msgstr "Beneficios Media Cuadrática Día a Día"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:40
-msgid "Time Series Forecast Model"
-msgstr "Modelo de Predicción de Series Temporales"
+msgid "AR Forecast Model"
+msgstr "Modelo de Predicción AR"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:53
 msgid "Next day prediction"
 msgstr "Predicción del día siguiente"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:99
+#: .\manast_site\templates\shop\tables\predictions_table.html:64
+msgid "Other Forecast Results"
+msgstr "Otros Modelos de Predicción"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:77
+msgid "MA prediction"
+msgstr "Predicción MA"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:80
+msgid "ARMA prediction"
+msgstr "Predicción ARMA"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:123
 #: .\manast_site\templates\shop\tables\stats_table.html:97
 #: .\manast_site\templates\shop\tables\stats_table.html:149
 msgid "Save as image"
