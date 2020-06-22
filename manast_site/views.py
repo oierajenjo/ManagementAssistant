@@ -239,11 +239,11 @@ def expenses_upload(request, pk):
         return render(request, "shop/expenses_upload.html", context)
 
     else:
-        csv_file = request.FILES['file']
+        csv_file = request.FILES['fileE']
         if not csv_file.name.endswith('.csv'):
             messages.error(request, 'Please upload a .csv file.')
         else:
-            file_name = request.FILES['file'].name
+            file_name = request.FILES['fileE'].name
             week = file_name[-12:-10]
             year = file_name[-9:-5]
             # "01Gastos(semana05-2020)"
@@ -256,7 +256,7 @@ def expenses_upload(request, pk):
                 )
                 _, created2 = Item.objects.update_or_create(
                     name=column[1],
-                    category=Category.objects.get(name=column[5]),
+                    category=Category.objects.get(name=column[4]),
                     shop=Shop.objects.get(pk=pk)
                 )
                 _, created3 = Expense.objects.update_or_create(
@@ -272,7 +272,7 @@ def expenses_upload(request, pk):
     return render(request, "shop/expenses_upload.html", context)
 
 
-@cache_page(60 * 2)
+# @cache_page(60 * 2)
 @login_required(login_url='login')
 def sales_table(request, pk):
     profile = Profile.objects.get(user=request.user)
@@ -319,7 +319,7 @@ def expenses_table(request, pk):
     exp_c = {}
     exp_c_keys = []
     for bk in sorted(exp.keys()):
-        b = {bk: float(ben[bk])}
+        b = {bk: float(exp[bk])}
         exp_c.update(b)
         exp_c_keys.append(bk)
 
@@ -423,20 +423,35 @@ def predictions_table(request, pk):
         direction_ar = None
         prediction_ma = 0.00
         prediction_arma = 0.00
+        rmse_arma = 0.00
+        rmse_ar = 0.00
+        rmse_ma = 0.00
+        prev_week = None
+        error_prev_week = 0.00
+        actual_week = None
+        prev_dates = None
+        epd_week = 0.00
 
-        context = {
-            "profile": profile,
-            "shop": shop,
-            "sales": sales,
-            "expenses": expenses,
-            "pred_mean_dates": pred_mean_dates,
-            "values_mean": values_mean,
-            "pred_mean": pred_mean,
-            "direction_ar": direction_ar,
-            "prediction_ar": prediction_ar,
-            "prediction_ma": prediction_ma,
-            "prediction_arma": prediction_arma
-            # "history": arima["history"],
-        }
+    context = {
+        "profile": profile,
+        "shop": shop,
+        "sales": sales,
+        "expenses": expenses,
+        "pred_mean_dates": pred_mean_dates,
+        "values_mean": values_mean,
+        "pred_mean": pred_mean,
+        "direction_ar": direction_ar,
+        "prediction_ar": prediction_ar,
+        "prediction_ma": prediction_ma,
+        "prediction_arma": prediction_arma,
+        "rmse_ar": rmse_ar,
+        "rmse_ma": rmse_ma,
+        "rmse_arma": rmse_arma,
+        "prev_week": prev_week,
+        "error_prev_week": error_prev_week,
+        "actual_week": actual_week,
+        "prev_dates": prev_dates,
+        "epd_week": epd_week
+    }
 
-        return render(request, "shop/tables/predictions_table.html", context)
+    return render(request, "shop/tables/predictions_table.html", context)
