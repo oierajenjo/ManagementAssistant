@@ -280,14 +280,20 @@ def sales_table(request, pk):
 
     sales = get_all_sales(shop)
 
-    ben_c = benefits_category(sales)
+    ben = benefits_category(sales)
+    ben_c = {}
     ben_c_keys = []
-    for bk in ben_c.keys():
+    for bk in sorted(ben.keys()):
+        b = {bk: float(ben[bk])}
+        ben_c.update(b)
         ben_c_keys.append(bk)
 
-    ben_i = benefits_item(sales)
+    ben = benefits_item(sales)
+    ben_i = {}
     ben_i_keys = []
-    for bk in ben_i.keys():
+    for bk in sorted(ben.keys()):
+        b = {bk: float(ben[bk])}
+        ben_i.update(b)
         ben_i_keys.append(bk)
 
     context = {
@@ -309,14 +315,20 @@ def expenses_table(request, pk):
 
     expenses = get_all_expenses(shop)
 
-    exp_c = expenses_category(expenses)
+    exp = expenses_category(expenses)
+    exp_c = {}
     exp_c_keys = []
-    for bk in exp_c.keys():
+    for bk in sorted(exp.keys()):
+        b = {bk: float(ben[bk])}
+        exp_c.update(b)
         exp_c_keys.append(bk)
 
-    exp_i = expenses_item(expenses)
+    exp = expenses_item(expenses)
+    exp_i = {}
     exp_i_keys = []
-    for bk in exp_i.keys():
+    for bk in sorted(exp.keys()):
+        b = {bk: float(exp[bk])}
+        exp_i.update(b)
         exp_i_keys.append(bk)
 
     context = {
