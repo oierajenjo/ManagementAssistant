@@ -397,24 +397,9 @@ def predictions_table(request, pk):
         pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
         # response = HttpResponse(content_type='image/png')
         # ax.show()
-        direction_ar, prediction_ar, prediction_ma, prediction_arma = pred_forecast(sales)
+        direction_ar, prediction_ar, rmse_ar, prediction_ma, rmse_ma, prediction_arma, rmse_arma, prev_week, actual_week, error_prev_week, epd_week = pred_forecast(sales)
+        prev_dates = pred_mean_dates[6:len(pred_mean_dates)-7]
 
-        context = {
-            "profile": profile,
-            "shop": shop,
-            "sales": sales,
-            "expenses": expenses,
-            "pred_mean_dates": pred_mean_dates,
-            "values_mean": values_mean,
-            "pred_mean": pred_mean,
-            "direction_ar": direction_ar,
-            "prediction_ar": prediction_ar,
-            "prediction_ma": prediction_ma,
-            "prediction_arma": prediction_arma
-            # "history": arima["history"],
-        }
-
-        return render(request, "shop/tables/predictions_table.html", context)
     else:
         pred_mean_dates = None
         values_mean = None

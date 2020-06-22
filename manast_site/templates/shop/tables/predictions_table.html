@@ -33,6 +33,31 @@
             </div>
         </div>
         <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>{% trans "Compared to previous week" %}</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            {% comment %}                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>{% endcomment %}
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="text-center">
+                            <h4>{% trans "Mean error per day" %}: {{ epd_week|floatformat:2 }}€</h4>
+                            <h4>{% trans "Total error" %}: {{ error_prev_week|floatformat:2 }}€</h4>
+                        </div>
+                        <div id="container_prev" style="height:350px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-6">
                 <div class="x_panel">
                     <div class="x_title">
@@ -50,8 +75,7 @@
                     <div class="x_content">
                         <div class="text-center">
                             <h3>{% trans "Next day prediction" %}: {{ prediction_ar|floatformat:2 }}€</h3>
-                        </div>
-                        <div class="text-center">
+                            <h4>{% trans "RMSE" %}: {{ rmse_ar|floatformat:2 }}€</h4>
                             <img src="{% static direction_ar %}" alt="prediction" class="img-responsive center-block">
                         </div>
                     </div>
@@ -74,9 +98,11 @@
                     <div class="x_content">
                         <div class="text-center">
                             <h3>{% trans "MA prediction" %}: {{ prediction_ma|floatformat:2 }}€</h3>
+                            <h4>{% trans "RMSE" %}: {{ rmse_ma|floatformat:2 }}€</h4>
                         </div>
                         <div class="text-center">
                             <h3>{% trans "ARMA prediction" %}: {{ prediction_arma|floatformat:2 }}€</h3>
+                            <h4>{% trans "RMSE" %}: {{ rmse_arma|floatformat:2 }}€</h4>
                         </div>
                     </div>
                 </div>
@@ -150,5 +176,60 @@
             myChart.setOption(option, true);
         }
     </script>
-
+    <script type="text/javascript">
+        var dom = document.getElementById("container_prev");
+        var myChart = echarts.init(dom);
+        var app = {};
+        option = null;
+        option = {
+            title: {
+                text: '{% trans "Compared to previous week" %}',
+                show: false
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: [ '{% trans "Previous" %}', '{% trans "Actual" %}']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {
+                        title: '{% trans "Save as image" %}'
+                    }
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: {{ prev_dates|safe }}
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '{% trans "Previous" %}',
+                    type: 'line',
+                    stack: false,
+                    data: {{ prev_week }}
+                },
+                {
+                    name: '{% trans "Actual" %}',
+                    type: 'line',
+                    stack: false,
+                    data: {{ actual_week }}
+                },
+            ]
+        };
+        if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+        }
+    </script>
 {% endblock javascripts %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 21:44+0200\n"
+"POT-Creation-Date: 2020-06-22 14:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,21 +121,21 @@ msgid "Sale"
 msgstr "Venta"
 
 #: .\manast_database\models.py:121
-#: .\manast_site\templates\shop\tables\predictions_table.html:112
-#: .\manast_site\templates\shop\tables\predictions_table.html:137
+#: .\manast_site\templates\shop\tables\predictions_table.html:139
+#: .\manast_site\templates\shop\tables\predictions_table.html:164
 #: .\manast_site\templates\shop\tables\sales_table.html:5
 #: .\manast_site\templates\shop\tables\sales_table.html:21
 #: .\manast_site\templates\sidebar.html:41
 msgid "Sales"
 msgstr "Ventas"
 
-#: .\manast_site\functions.py:387
+#: .\manast_site\functions.py:389
 msgid "Results"
 msgstr "Resultados"
 
-#: .\manast_site\functions.py:388
-#: .\manast_site\templates\shop\tables\predictions_table.html:112
-#: .\manast_site\templates\shop\tables\predictions_table.html:143
+#: .\manast_site\functions.py:390
+#: .\manast_site\templates\shop\tables\predictions_table.html:139
+#: .\manast_site\templates\shop\tables\predictions_table.html:170
 #: .\manast_site\templates\sidebar.html:44
 msgid "Predictions"
 msgstr "Predicciones"
@@ -250,27 +250,27 @@ msgid "Modify user"
 msgstr "Modificar usuario"
 
 #: .\manast_site\templates\account\edit_user.html:18
-#: .\manast_site\templates\registration\login_register.html:51
+#: .\manast_site\templates\registration\login_register.html:52
 #: .\manast_site\templates\shop\edit_shop.html:21
 #: .\manast_site\templates\shop\holidays.html:27
 msgid "Name"
 msgstr "Nombre"
 
 #: .\manast_site\templates\account\edit_user.html:27
-#: .\manast_site\templates\registration\login_register.html:56
+#: .\manast_site\templates\registration\login_register.html:57
 msgid "Surname"
 msgstr "Apellidos"
 
 #: .\manast_site\templates\account\edit_user.html:35
 #: .\manast_site\templates\account\profile_view.html:31
-#: .\manast_site\templates\registration\login_register.html:28
-#: .\manast_site\templates\registration\login_register.html:63
+#: .\manast_site\templates\registration\login_register.html:29
+#: .\manast_site\templates\registration\login_register.html:64
 msgid "Username"
 msgstr "Nombre de usuario"
 
 #: .\manast_site\templates\account\edit_user.html:51
-#: .\manast_site\templates\registration\login_register.html:34
-#: .\manast_site\templates\registration\login_register.html:75
+#: .\manast_site\templates\registration\login_register.html:35
+#: .\manast_site\templates\registration\login_register.html:76
 #: .\manast_site\templates\registration\password_reset_confirm.html:26
 msgid "Password"
 msgstr "Contraseña"
@@ -278,7 +278,7 @@ msgstr "Contraseña"
 #: .\manast_site\templates\account\edit_user.html:55
 #: .\manast_site\templates\account\edit_user.html:60
 #: .\manast_site\templates\account\edit_user.html:64
-#: .\manast_site\templates\registration\login_register.html:82
+#: .\manast_site\templates\registration\login_register.html:83
 #: .\manast_site\templates\registration\password_reset_confirm.html:34
 msgid "Repeat Password"
 msgstr "Repetir Contraseña"
@@ -313,7 +313,8 @@ msgstr "Email"
 msgid "Shops list"
 msgstr "Lista de tiendas"
 
-#: .\manast_site\templates\base_site.html:15
+#: .\manast_site\templates\base_site.html:16
+#: .\manast_site\templates\registration\login_register.html:8
 msgid "ManagementAssistant"
 msgstr "ManagementAssistant"
 
@@ -335,25 +336,25 @@ msgid "Chipmunk - Based on"
 msgstr "Chipmunk - Basado en"
 
 #: .\manast_site\templates\registration\login_register.html:8
-#: .\manast_site\templates\registration\login_register.html:19
-#: .\manast_site\templates\registration\login_register.html:40
+#: .\manast_site\templates\registration\login_register.html:20
+#: .\manast_site\templates\registration\login_register.html:41
 msgid "Login"
 msgstr "Iniciar Sesión"
 
-#: .\manast_site\templates\registration\login_register.html:18
-#: .\manast_site\templates\registration\login_register.html:45
+#: .\manast_site\templates\registration\login_register.html:19
+#: .\manast_site\templates\registration\login_register.html:46
 msgid "Register"
 msgstr "Registrar"
 
-#: .\manast_site\templates\registration\login_register.html:23
+#: .\manast_site\templates\registration\login_register.html:24
 msgid "Welcome again!"
 msgstr "¡Bienvenido de nuevo!"
 
-#: .\manast_site\templates\registration\login_register.html:39
+#: .\manast_site\templates\registration\login_register.html:40
 msgid "Have you forgotten your password?"
 msgstr "¿Ha olvidado su contraseña?"
 
-#: .\manast_site\templates\registration\login_register.html:88
+#: .\manast_site\templates\registration\login_register.html:89
 msgid "Create"
 msgstr "Crear"
 
@@ -544,35 +545,65 @@ msgid "Stats"
 msgstr "Estadísticas"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:18
-#: .\manast_site\templates\shop\tables\predictions_table.html:105
+#: .\manast_site\templates\shop\tables\predictions_table.html:132
 msgid "Benefits Mean Square Day by Day"
 msgstr "Beneficios Media Cuadrática Día a Día"
 
 #: .\manast_site\templates\shop\tables\predictions_table.html:40
+#: .\manast_site\templates\shop\tables\predictions_table.html:188
+msgid "Compared to previous week"
+msgstr "Comparado con la semana anterior"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:54
+msgid "Mean error per day"
+msgstr "Error medio por día"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:55
+msgid "Total error"
+msgstr "Error total"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:66
 msgid "AR Forecast Model"
 msgstr "Modelo de Predicción AR"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:53
+#: .\manast_site\templates\shop\tables\predictions_table.html:79
 msgid "Next day prediction"
 msgstr "Predicción del día siguiente"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:64
+#: .\manast_site\templates\shop\tables\predictions_table.html:80
+#: .\manast_site\templates\shop\tables\predictions_table.html:103
+#: .\manast_site\templates\shop\tables\predictions_table.html:107
+msgid "RMSE"
+msgstr "RECM"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:89
 msgid "Other Forecast Results"
 msgstr "Otros Modelos de Predicción"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:77
+#: .\manast_site\templates\shop\tables\predictions_table.html:102
 msgid "MA prediction"
 msgstr "Predicción MA"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:80
+#: .\manast_site\templates\shop\tables\predictions_table.html:106
 msgid "ARMA prediction"
 msgstr "Predicción ARMA"
 
-#: .\manast_site\templates\shop\tables\predictions_table.html:123
+#: .\manast_site\templates\shop\tables\predictions_table.html:150
+#: .\manast_site\templates\shop\tables\predictions_table.html:206
 #: .\manast_site\templates\shop\tables\stats_table.html:97
 #: .\manast_site\templates\shop\tables\stats_table.html:149
 msgid "Save as image"
 msgstr "Guardar como imagen"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:195
+#: .\manast_site\templates\shop\tables\predictions_table.html:220
+msgid "Previous"
+msgstr "Anterior"
+
+#: .\manast_site\templates\shop\tables\predictions_table.html:195
+#: .\manast_site\templates\shop\tables\predictions_table.html:226
+msgid "Actual"
+msgstr "Current"
 
 #: .\manast_site\templates\shop\tables\sales_table.html:50
 msgid "Price"

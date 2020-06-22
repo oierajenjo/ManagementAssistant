@@ -6,9 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from matplotlib import pyplot
 from pandas import read_csv
 from pandas.plotting import register_matplotlib_converters
-from statsmodels.tsa.ar_model import AutoReg
-from statsmodels.tsa.ar_model import AutoRegResults
-from statsmodels.tsa.arima_model import ARMA, ARIMA
+from statsmodels.tsa.ar_model import AutoReg, AutoRegResults
+from statsmodels.tsa.arima_model import ARMA
+from math import sqrt
+from sklearn.metrics import mean_squared_error
 
 from manast_database.models import Expense, Sale
 
@@ -380,6 +381,7 @@ def pred_forecast(sales):
     predictions = model.predict(start=len(data), end=len(data))
     # transform prediction
     yhat_ar = predictions[0] + last_ob[0]
+    rmse_ar = sqrt(mean_squared_error(test, predictions[:len(predictions) - 1]))
 
     direction = "manast_site/static/predictions/predictionAR.png"
     direction_ar = "predictions/predictionAR.png"
@@ -419,6 +421,7 @@ def pred_forecast(sales):
     predictions = model.predict(start=len(data), end=len(data))
     # transform prediction
     yhat_ma = predictions[0] + last_ob[0]
+    rmse_ma = sqrt(mean_squared_error(test, predictions[:len(predictions) - 1]))
 
     # ARMA
 
@@ -449,5 +452,19 @@ def pred_forecast(sales):
     predictions = model.predict(start=len(data), end=len(data))
     # transform prediction
     yhat_arma = predictions[0] + last_ob[0]
+    rmse_arma = sqrt(mean_squared_error(test, predictions[:len(predictions) - 1]))
 
-    return direction_ar, yhat_ar, yhat_ma, yhat_arma
+    prev_week = []
+    error_prev_week = 0
+    actual_week = []
+
+    for v in range(6, len(series.values)):
+        prev_week.append(float(series.values[v-7]))
+        actual_week.append(float(series.values[v]))
+        error_prev_week += float(series.values[v])
+        error_prev_week -= float(series.values[v-7])
+
+    epd_week = error_prev_week/(len(series.values)-7)
+    print(epd_week)
+
+    return direction_ar, yhat_ar, rmse_ar, yhat_ma, rmse_ma, yhat_arma, rmse_arma, prev_week, actual_week, error_prev_week, epd_week
