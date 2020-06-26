@@ -3,14 +3,14 @@ from manast_database.models import *
 
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_filter = ['name']
-    list_display = ['name']
+    list_filter = ['name', 'profile']
+    list_display = ['name', 'profile']
     # search_fields = ['']
 
 
 class ItemAdmin(admin.ModelAdmin):
-    list_filter = ('name', 'category', 'shop')
-    list_display = ('name', 'category', 'shop')
+    list_filter = ('name', 'category', 'profile')
+    list_display = ('name', 'category', 'profile')
     # search_fields = ['']
 
 

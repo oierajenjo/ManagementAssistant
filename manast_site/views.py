@@ -191,11 +191,11 @@ def sales_upload(request, pk):
         return render(request, "shop/sales_upload.html", context)
 
     else:
-        csv_file = request.FILES['file']
+        csv_file = request.FILES['fileS']
         if not csv_file.name.endswith('.csv'):
             messages.error(request, 'Please upload a .csv file.')
         else:
-            file_name = request.FILES['file'].name
+            file_name = request.FILES['fileS'].name
             week = file_name[-12:-10]
             year = file_name[-9:-5]
             # "01Ventas(semana05-2020)"
@@ -204,12 +204,13 @@ def sales_upload(request, pk):
             next(io_string)
             for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Category.objects.update_or_create(
-                    name=column[5]
+                    name=column[5],
+                    profile=profile
                 )
                 _, created2 = Item.objects.update_or_create(
                     name=column[1],
                     category=Category.objects.get(name=column[5]),
-                    shop=Shop.objects.get(pk=pk)
+                    profile=profile
                 )
                 _, created3 = Sale.objects.update_or_create(
                     date=get_day(column[0], week, year),
@@ -217,7 +218,7 @@ def sales_upload(request, pk):
                     price=float(column[2].replace(',', '.')),
                     quantity=float(column[3].replace(',', '.')),
                     cost=float(column[4].replace(',', '.')),
-                    shop=Shop.objects.get(pk=pk)
+                    shop=shop
                 )
 
     return render(request, "shop/sales_upload.html", context)
@@ -397,8 +398,9 @@ def predictions_table(request, pk):
         pred_mean_dates, values_mean, pred_mean = pred_by_mean(sales)
         # response = HttpResponse(content_type='image/png')
         # ax.show()
-        direction_ar, prediction_ar, rmse_ar, prediction_ma, rmse_ma, prediction_arma, rmse_arma, prev_week, actual_week, error_prev_week, epd_week = pred_forecast(sales)
-        prev_dates = pred_mean_dates[6:len(pred_mean_dates)-7]
+        direction_ar, prediction_ar, rmse_ar, prediction_ma, rmse_ma, prediction_arma, rmse_arma, prev_week, actual_week, error_prev_week, epd_week = pred_forecast(
+            sales)
+        prev_dates = pred_mean_dates[6:len(pred_mean_dates) - 7]
 
     else:
         pred_mean_dates = None

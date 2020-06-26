@@ -19,7 +19,8 @@ PERIODIC = [
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=30, primary_key=True, verbose_name=_("name_category"), unique=True)
+    name = models.CharField(max_length=30, verbose_name=_("name_category"), unique=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -30,11 +31,12 @@ class Category(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=30, primary_key=True, verbose_name=_("name_item"), unique=True)
+    name = models.CharField(max_length=30, verbose_name=_("name_item"), unique=True)
     category = models.ForeignKey(Category, verbose_name=_("category_item"), on_delete=models.CASCADE, blank=True)
     # in_inventory = models.IntegerField(blank=True, verbose_name=_("in_inventory_item"))
     # price = models.DecimalField(default=0.00, decimal_places=2, max_digits=10, verbose_name=_("price"))
-    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    # shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
