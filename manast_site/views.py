@@ -253,12 +253,13 @@ def expenses_upload(request, pk):
             next(io_string)
             for column in csv.reader(io_string, delimiter=';', quotechar="|"):
                 _, created = Category.objects.update_or_create(
-                    name=column[4]
+                    name=column[4],
+                    profile=profile
                 )
                 _, created2 = Item.objects.update_or_create(
                     name=column[1],
                     category=Category.objects.get(name=column[4]),
-                    shop=Shop.objects.get(pk=pk)
+                    profile=profile
                 )
                 _, created3 = Expense.objects.update_or_create(
                     date=get_day(column[0], week, year),
