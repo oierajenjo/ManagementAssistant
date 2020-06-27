@@ -353,7 +353,7 @@ def pred_forecast(sales):
     # train autoregression
 
     # AR
-    window = 6
+    window = 7
     model_ar = AutoReg(train, lags=window)
     model_fit_ar = model_ar.fit()
 
@@ -465,6 +465,6 @@ def pred_forecast(sales):
         error_prev_week -= float(series.values[v-7])
 
     epd_week = error_prev_week/(len(series.values)-7)
-    print(epd_week)
+    # print(epd_week)
 
     return direction_ar, yhat_ar, rmse_ar, yhat_ma, rmse_ma, yhat_arma, rmse_arma, prev_week, actual_week, error_prev_week, epd_week
