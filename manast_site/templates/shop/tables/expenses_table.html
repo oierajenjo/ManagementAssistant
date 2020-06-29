@@ -57,7 +57,7 @@
                                 <tbody>
                                 {% for exp in expenses %}
                                     <tr>
-                                        <td>{{ exp.date }}</td>
+                                        <td>{{ exp.date|date:"Y-m-d" }}</td>
                                         <td>{{ exp.item }}</td>
                                         <td>{{ exp.item.category }}</td>
                                         <td>{{ exp.quantity|floatformat:2 }}</td>

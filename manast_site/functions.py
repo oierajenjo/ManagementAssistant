@@ -390,11 +390,10 @@ def pred_forecast(sales):
     pyplot.plot(predictions, color='red', label=_("Predictions"))
     pyplot.legend()
     pyplot.savefig(direction)
-    # print('Prediction: %f' % yhat)
 
     # MA
 
-    model_ma = ARMA(train, order=(0, 1))
+    model_ma = ARMA(train, order=(0, 0))
     model_fit_ma = model_ma.fit(disp=False)
 
     # save model to file
@@ -425,7 +424,7 @@ def pred_forecast(sales):
 
     # ARMA
 
-    model_arma = ARMA(train, order=(2, 1))
+    model_arma = ARMA(train, order=(window, 0))
     model_fit_arma = model_arma.fit(disp=False)
 
     # save model to file
