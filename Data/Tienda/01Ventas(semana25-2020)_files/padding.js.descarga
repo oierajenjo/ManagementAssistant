@@ -1,0 +1,50 @@
+// JavaScript Document
+//<SCRIPT LANGUAGE="JavaScript" SRC="fichero.js"></SCRIPT>
+
+//Función para el ajuste de posicionamiento de los portlets
+//function cambiodetamanio(){
+function leftpadding(imgname, extrasize){  
+  iWidth = (!document.all)?window.innerWidth:document.body.clientWidth;
+  iTamanio = parseInt(iWidth - 766)/2 ;
+  document.images[imgname].width = iTamanio - 5 + extrasize;
+  document.images[imgname].height = 1;
+//  alert ('Tamanio ' + imgname + ': ' + document.images[imgname].width);
+}
+
+function rightpadding(imgname, extrasize){  
+  iWidth = (!document.all)?window.innerWidth:document.body.clientWidth;
+  iTamanio = parseInt(iWidth - 766)/2 ;
+  document.images[imgname].width = iTamanio + extrasize;
+  document.images[imgname].height = 1;  
+  //alert ('Tamanio ' + imgname ': ' + document.images[imgname].width);
+}
+
+function verticalpadding(imgname, vsize){  
+  document.images[imgname].width = 1;
+  document.images[imgname].height = vsize;  
+}
+
+// Saltos entre tabla y gráfico
+function SaltoInterno(destino){
+  window.location.hash = destino;
+}
+
+//Obtiene la coordenada Y de un elemento por su ID
+//JavaScript & DHTML Cookbook By Danny Goodman 
+function getYPosition(elemID) {
+    var offsetTrail = document.getElementById(elemID);
+    var offsetLeft = 0;
+    var offsetTop = 0;
+    while (offsetTrail) {
+        //offsetLeft += offsetTrail.offsetLeft;
+        offsetTop += offsetTrail.offsetTop;
+        offsetTrail = offsetTrail.offsetParent;
+    }
+    if (navigator.userAgent.indexOf("Mac") != -1 && 
+        typeof document.body.leftMargin != "undefined") {
+        //offsetLeft += document.body.leftMargin;
+        offsetTop += document.body.topMargin;
+    }
+    return offsetTop;
+}
+

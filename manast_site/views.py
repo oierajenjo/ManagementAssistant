@@ -60,6 +60,7 @@ def logout(request):
     return HttpResponseRedirect("login")
 
 
+@never_cache
 @login_required(login_url='login')
 def profile_view(request):
     profile = Profile.objects.get(user=request.user)
@@ -70,6 +71,7 @@ def profile_view(request):
     return render(request, "account/profile_view.html", context)
 
 
+@never_cache
 @login_required(login_url='login')
 def shop_view(request, pk):
     profile = Profile.objects.get(user=request.user)
@@ -83,6 +85,7 @@ def shop_view(request, pk):
     return render(request, "shop/shop_view.html", context)
 
 
+@never_cache
 @login_required(login_url='login')
 def edit_user(request):
     profile = Profile.objects.get(user=request.user)
@@ -133,6 +136,7 @@ def holiday(request, pk):
     return render(request, 'shop/holidays.html', context)
 
 
+@never_cache
 @login_required(login_url='login')
 def edit_shop(request, pk):
     profile = Profile.objects.get(user=request.user)
@@ -163,6 +167,7 @@ def edit_shop(request, pk):
     return render(request, 'shop/edit_shop.html', context)
 
 
+@never_cache
 @login_required(login_url='login')
 def new_shop(request):
     profile = Profile.objects.get(user=request.user)
@@ -171,6 +176,7 @@ def new_shop(request):
     return redirect(edit_shop, pk=shop.pk)
 
 
+@never_cache
 @login_required(login_url='login')
 def delete_shop(request, pk):
     shop = Shop.objects.get(pk=pk)
