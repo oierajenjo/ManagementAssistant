@@ -12,6 +12,7 @@ from manast_database.models import Item, Category
 from manast_site.forms import *
 from manast_site.models import *
 from .functions import *
+from django.views.decorators.cache import never_cache
 
 
 def index(request):
@@ -21,6 +22,7 @@ def index(request):
     return redirect(profile_view)
 
 
+@never_cache
 def login_register(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -51,6 +53,7 @@ def login_register(request):
     return render(request, 'registration/login_register.html')
 
 
+@never_cache
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
