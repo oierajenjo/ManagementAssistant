@@ -460,8 +460,8 @@ def pred_forecast(sales):
     for v in range(6, len(series.values)):
         prev_week.append(float(series.values[v-7]))
         actual_week.append(float(series.values[v]))
-        error_prev_week += float(series.values[v])
-        error_prev_week -= float(series.values[v-7])
+        error = float(series.values[v]) - float(series.values[v-7])
+        error_prev_week += abs(error)
 
     epd_week = error_prev_week/(len(series.values)-7)
     # print(epd_week)
